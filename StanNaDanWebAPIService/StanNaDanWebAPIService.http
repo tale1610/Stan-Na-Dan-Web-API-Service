@@ -1,0 +1,6 @@
+@StanNaDanWebAPIService_HostAddress = http://localhost:5268
+
+GET {{StanNaDanWebAPIService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

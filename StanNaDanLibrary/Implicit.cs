@@ -1,0 +1,15 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Threading.Tasks;
+global using StanNaDan.Entiteti;
+global using FluentNHibernate.Mapping;
+global using System.ComponentModel.DataAnnotations;
+global using static StanNaDanLibrary.Extensions;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Reflection;
+global using System.Threading.Tasks;
+global using StanNaDanLibrary.Entiteti;
+global using StanNaDanLibrary;
+global using NHibernate;

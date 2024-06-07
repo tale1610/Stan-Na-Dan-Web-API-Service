@@ -1,0 +1,8 @@
+﻿Dodaj svuda virtual u svakoj klasi ispred svakog propertija da bi omogucio mapiranje
+Jedan od glavnih problema u NHibernate stoji da je: Broj klasa se ne podudara sa brojem tabela u bazi, tebi ispada isto i to mi je sumnjivo
+Svuda gde si stavio required za vezu razmisli da l da ostane required jer moze nekad da dovede do problema neki
+Pogledaj sve one stvari oko lista
+Prodji kroz sve klase i proveri veze na kraju dodavanja svih klasa
+Sve one kljuceve gde se generisu automatski vidi kako treba da obezbedis u mapiranju
+Tamo gde se PK sadrzi od dva atributa u bazi vidi da l postoji neka logika posebna i u NHibernate za to ili klasicno mapiras, ako je neka zajebana logika surogat kljucevi bato
+Inicijalna verzija gotova samo sa osnovne klase, dosta stvari ima da se proveri, pogotovo veze na strani N mozda sam ih zaboravio kompletno
