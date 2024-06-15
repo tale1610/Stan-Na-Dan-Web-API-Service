@@ -5,97 +5,96 @@ namespace StanNaDanWebAPIService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ParkingController : ControllerBase
+    public class SajtoviNekretnineController : ControllerBase
     {
-
         [HttpPost]
-        [Route("DodajParking/{idNekretnine}")]
+        [Route("DodajSajtNekretnine/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DodajParking(int idNekretnine, [FromBody] ParkingView p)
+        public async Task<IActionResult> DodajSajtNekretnine(int idNekretnine, [FromBody] SajtoviNekretnineView p)
         {
-            var data = await DataProvider.DodajParkingAsync(p, idNekretnine);
+            var data = await DataProvider.DodajSajtNekretnineAsync(p, idNekretnine);
 
             if (data.IsError)
             {
                 return StatusCode(data.Error.StatusCode, data.Error.Message);
             }
 
-            return StatusCode(201, $"Uspešno dodat parking.");
+            return StatusCode(201, $"Uspešno dodat sajt.");
         }
 
         [HttpGet]
-        [Route("VratiSveParkingeNekretnine/{idNekretnina}")]
+        [Route("VratiSveSajtoveNekretnine/{idNekretnina}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult VratiSveParkingeNekretnine(int idNekretnina)
+        public IActionResult VratiSveSajtoveNekretnine(int idNekretnina)
         {
-            (bool isError, var parkinzi, ErrorMessage? error) = DataProvider.VratiSveParkingeNekretnine(idNekretnina);
+            (bool isError, var sajtovi, ErrorMessage? error) = DataProvider.VratiSveSajtoveNekretnine(idNekretnina);
 
             if (isError)
             {
                 return StatusCode(error?.StatusCode ?? 400, error?.Message);
             }
 
-            return Ok(parkinzi);
+            return Ok(sajtovi);
         }
 
         [HttpGet]
-        [Route("VratiParking/{idParkinga}/{idNekretnina}")]
+        [Route("VratiSajtNekretnine/{sajtNekretnine}/{idNekretnina}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult>VratiParking(int idParkinga, int idNekretnina)
+        public async Task<IActionResult> VratiSajtNekretnine(string sajtNekretnine, int idNekretnina)
         {
-            (bool isError, var parking, ErrorMessage? error) = await DataProvider.VratiParkingAsync(idParkinga, idNekretnina);
+            (bool isError, var sajt, ErrorMessage? error) = await DataProvider.VratiSajtNekretnineAsync(sajtNekretnine, idNekretnina);
 
             if (isError)
             {
                 return StatusCode(error?.StatusCode ?? 400, error?.Message);
             }
 
-            return Ok(parking);
+            return Ok(sajt);
         }
 
         [HttpPut]
-        [Route("IzmeniParking/{idNekretnine}")]
+        [Route("IzmeniSajtNekretnine/{stariSajt}/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> IzmeniParking(int idNekretnine, ParkingView o)
+        public async Task<IActionResult> IzmeniSajtNekretnine(string stariSajt, int idNekretnine, SajtoviNekretnineView o)
         {
-            (bool isError, var parking, ErrorMessage? error) = await DataProvider.IzmeniParkingAsync(o, idNekretnine);
+            (bool isError, var sajt, ErrorMessage? error) = await DataProvider.IzmeniSajtNekretnineAsync(o, stariSajt, idNekretnine);
 
             if (isError)
             {
                 return StatusCode(error?.StatusCode ?? 400, error?.Message);
             }
 
-            if (parking == null)
+            if (sajt == null)
             {
-                return BadRequest("Parking nije validan.");
+                return BadRequest("Sajt nije validan.");
             }
 
             return Ok($"Uspešno ažuriran parking.");
         }
 
         [HttpDelete]
-        [Route("ObrisiParking/{idParkinga}/{idNretnine}")]
+        [Route("ObrisiSajtNekretnine/{sajt}/{idNretnine}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> ObrisiParking(int idParkinga, int idNretnine)
+        public async Task<IActionResult> ObrisiSajtNekretnine(string sajt, int idNretnine)
         {
-            var data = await DataProvider.ObrisiParkingAsync(idParkinga, idNretnine);
+            var data = await DataProvider.ObrisiSajtNekretnineAsync(sajt, idNretnine);
 
             if (data.IsError)
             {
                 return StatusCode(data.Error.StatusCode, data.Error.Message);
             }
 
-            return StatusCode(200, $"Uspešno obrisan parking.");
+            return StatusCode(200, $"Uspešno obrisan sajt.");
         }
     }
 }
