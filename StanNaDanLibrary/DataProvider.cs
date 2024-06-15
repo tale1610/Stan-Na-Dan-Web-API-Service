@@ -1399,7 +1399,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> IzmeniPravnoLice(PravnoLiceView izmenjenoPravnoLice)
+    public static Result<bool, ErrorMessage> IzmeniPravnoLice(string pib, PravnoLiceView izmenjenoPravnoLice)
     {
         ISession? session = null;
         try
@@ -1407,7 +1407,7 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
-                PravnoLice pravnoLice = session.Get<PravnoLice>(izmenjenoPravnoLice.PIB);
+                PravnoLice pravnoLice = session.Get<PravnoLice>(pib);
                 if (pravnoLice != null)
                 {
                     pravnoLice.Naziv = izmenjenoPravnoLice.Naziv;

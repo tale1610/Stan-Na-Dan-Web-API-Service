@@ -65,14 +65,14 @@ namespace StanNaDanWebAPIService.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public IActionResult IzmeniSefa(string mbr, [FromBody] SefView p)
         {
-            (bool isError, var kvart, ErrorMessage? error) = DataProvider.IzmeniSefa(mbr, p);
+            (bool isError, var sef, ErrorMessage? error) = DataProvider.IzmeniSefa(mbr, p);
 
             if (isError)
             {
                 return StatusCode(error?.StatusCode ?? 400, error?.Message);
             }
 
-            if (kvart == null)
+            if (sef == null)
             {
                 return BadRequest("Sef nije validan.");
             }
