@@ -8,23 +8,6 @@ namespace StanNaDanWebAPIService.Controllers
     public class ZaposleniController : ControllerBase
     {
         [HttpGet]
-        [Route("VratiSveAgente")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult VratiSveAgente()
-        {
-            (bool isError, var zaposleni, ErrorMessage? error) = DataProvider.VratiSveAgente();
-
-            if (isError)
-            {
-                return StatusCode(error?.StatusCode ?? 400, error?.Message);
-            }
-
-            return Ok(zaposleni);
-        }
-
-        [HttpGet]
         [Route("VratiZaposlenogAsync/{mbr}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

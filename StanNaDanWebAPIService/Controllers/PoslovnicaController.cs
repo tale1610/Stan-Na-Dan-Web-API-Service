@@ -43,13 +43,13 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpPut]
-        [Route("IzmeniPoslovnicu")]
+        [Route("IzmeniPoslovnicu/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> IzmeniPoslovnicu([FromBody] PoslovnicaView p)
+        public async Task<IActionResult> IzmeniPoslovnicu(int id, [FromBody] PoslovnicaView p)
         {
-            (bool isError, var poslovnica, ErrorMessage? error) = await DataProvider.IzmeniPoslovnicuAsync(p);
+            (bool isError, var poslovnica, ErrorMessage? error) = await DataProvider.IzmeniPoslovnicuAsync(id, p);
 
             if (isError)
             {
