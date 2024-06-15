@@ -1,4 +1,5 @@
 ﻿using NHibernate.Linq;
+using StanNaDanLibrary.Entiteti;
 
 namespace StanNaDanLibrary;
 
@@ -234,18 +235,19 @@ public class DataProvider
             {
                 return "Nemoguće otvoriti sesiju.".ToError(403);
             }
+            Agent agent = await s.LoadAsync<Agent>(mbr);
 
-            Zaposleni zaposleni = await s.LoadAsync<Zaposleni>(mbr);
-
-            if (zaposleni is Sef sef)
+            if (agent == null)
             {
+                Sef sef = await s.LoadAsync<Sef>(mbr);
                 zaposleniView = new SefView(sef);
             }
-            else if (zaposleni is Agent agent)
+            else if (agent != null)
             {
                 zaposleniView = new AgentView(agent);
+
             }
-            else
+            else 
             {
                 return "Nepoznati tip zaposlenog.".ToError(400);
             }
