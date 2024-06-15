@@ -59,7 +59,7 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpPut]
-        [Route("IzmeniSefa/{id}")]
+        [Route("IzmeniSefa/{mbr}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -74,10 +74,10 @@ namespace StanNaDanWebAPIService.Controllers
 
             if (kvart == null)
             {
-                return BadRequest("Kvart nije validan.");
+                return BadRequest("Sef nije validan.");
             }
 
-            return Ok($"Uspešno ažuriran kvart.");
+            return Ok($"Uspešno ažuriran sef.");
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using StanNaDanLibrary;
+
+namespace StanNaDanWebAPIService.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class VlasnikController : ControllerBase
+    {
+        [HttpDelete]
+        [Route("ObrisiVlasnika/{jmbg}/{pib}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult ObrisiVlasnika(string jmbg, string pib)
+        {
+            var data = DataProvider.ObrisiVlasnika(jmbg, pib);
+
+            if (data.IsError)
+            {
+                return StatusCode(data.Error.StatusCode, data.Error.Message);
+            }
+
+            return StatusCode(200, $"Uspešno obrisan vlasnik. JMBG: {jmbg}");
+        }
+    }
+}
