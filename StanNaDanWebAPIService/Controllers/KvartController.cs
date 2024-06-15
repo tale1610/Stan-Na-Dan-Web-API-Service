@@ -23,6 +23,7 @@ namespace StanNaDanWebAPIService.Controllers
 
             return Ok(kvartovi);
         }
+
         [HttpGet]
         [Route("VratiSveKvartovePoslovnice/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -94,6 +95,23 @@ namespace StanNaDanWebAPIService.Controllers
             }
 
             return Ok($"Uspešno ažuriran kvart.");
+        }
+
+        [HttpDelete]
+        [Route("ObrisiKvart/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult ObrisiKvart(int id)
+        {
+            var data =  DataProvider.ObrisiKvart(id);
+
+            if (data.IsError)
+            {
+                return StatusCode(data.Error.StatusCode, data.Error.Message);
+            }
+
+            return StatusCode(200, $"Uspešno obrisan kvart. ID: {id}");
         }
     }
 }
