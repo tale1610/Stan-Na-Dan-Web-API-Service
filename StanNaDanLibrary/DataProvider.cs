@@ -570,7 +570,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> IzmeniSefa(SefView izmenjeniSef)
+    public static Result<bool, ErrorMessage> IzmeniSefa(string mbr,SefView izmenjeniSef)
     {
         ISession? session = null;
         try
@@ -578,7 +578,7 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
-                Sef sef = session.Get<Sef>(izmenjeniSef.MBR);
+                Sef sef = session.Get<Sef>(mbr);
                 if (sef != null)
                 {
                     sef.Ime = izmenjeniSef.Ime;
