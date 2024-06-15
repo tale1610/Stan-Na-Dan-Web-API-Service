@@ -43,7 +43,7 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpPut]
-        [Route("IzmeniPoslovnicu/{id}")]
+        [Route("IzmeniPoslovnicu")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -79,7 +79,7 @@ namespace StanNaDanWebAPIService.Controllers
                 return StatusCode(data.Error.StatusCode, data.Error.Message);
             }
 
-            return StatusCode(204, $"Uspešno obrisana prodavnica. ID: {id}");
+            return StatusCode(200, $"Uspešno obrisana prodavnica. ID: {id}");
         }
 
 

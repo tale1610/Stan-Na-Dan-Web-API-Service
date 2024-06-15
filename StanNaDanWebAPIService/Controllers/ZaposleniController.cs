@@ -8,13 +8,13 @@ namespace StanNaDanWebAPIService.Controllers
     public class ZaposleniController : ControllerBase
     {
         [HttpGet]
-        [Route("VratiSveZaposlene")]
+        [Route("VratiSveAgente")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult VratiSveZaposlene()
+        public IActionResult VratiSveAgente()
         {
-            (bool isError, var zaposleni, ErrorMessage? error) = DataProvider.VratiSveZaposlene();
+            (bool isError, var zaposleni, ErrorMessage? error) = DataProvider.VratiSveAgente();
 
             if (isError)
             {
