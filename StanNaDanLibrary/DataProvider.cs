@@ -77,7 +77,7 @@ public class DataProvider
         return true;
     }
 
-    public async static Task<Result<PoslovnicaView, ErrorMessage>> IzmeniPoslovnicuAsync(PoslovnicaView p)
+    public async static Task<Result<PoslovnicaView, ErrorMessage>> IzmeniPoslovnicuAsync(int id, PoslovnicaView p)
     {
         ISession? s = null;
 
@@ -90,7 +90,7 @@ public class DataProvider
                 return "Nemoguće otvoriti sesiju.".ToError(403);
             }
 
-            Poslovnica o = s.Load<Poslovnica>(p.ID);
+            Poslovnica o = s.Load<Poslovnica>(id);
             o.Adresa = p.Adresa;
             o.RadnoVreme = p.RadnoVreme;
             //o.Sef = p.Sef;
@@ -409,7 +409,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> IzmeniAgenta(AgentView agentView)
+    public static Result<AgentView, ErrorMessage> IzmeniAgenta(string mbr, AgentView agentView)
     {
         ISession? session = null;
         try
@@ -418,7 +418,7 @@ public class DataProvider
 
             if (session != null && session.IsOpen)
             {
-                Agent agent = session.Get<Agent>(agentView.MBR);
+                Agent agent = session.Get<Agent>(mbr);
 
                 if (agent != null)
                 {
@@ -430,7 +430,7 @@ public class DataProvider
                     session.Update(agent);
                     session.Flush();
 
-                    return true;
+                    return agentView;
                 }
                 else
                 {
