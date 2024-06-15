@@ -54,13 +54,13 @@ public class DataProvider
                 return "Nemoguće otvoriti sesiju.".ToError(403);
             }
 
-            Poslovnica o = new()
+            Poslovnica poslovnica = new()
             {
                 Adresa = p.Adresa,
                 RadnoVreme = p.RadnoVreme
             };
 
-            await s.SaveOrUpdateAsync(o);
+            await s.SaveOrUpdateAsync(poslovnica);
             await s.FlushAsync();
         }
         catch (Exception)

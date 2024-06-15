@@ -23,7 +23,7 @@ public class PoslovnicaView
             ID = poslovnica.ID;
             Adresa = poslovnica.Adresa;
             RadnoVreme = poslovnica.RadnoVreme;
-            Sef = new SefView(poslovnica.Sef);
+            Sef = poslovnica.Sef == null ? new SefView(poslovnica.Sef) : null;
             //Zaposleni = poslovnica.Zaposleni.Select(z => new ZaposleniView(z)).ToList();
             //Kvartovi = poslovnica.Kvartovi.Select(k => new KvartView(k)).ToList();
         }
