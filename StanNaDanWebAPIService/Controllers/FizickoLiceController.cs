@@ -5,96 +5,96 @@ namespace StanNaDanWebAPIService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PravnoLiceController : ControllerBase
+    public class FizickoLiceController : ControllerBase
     {
         [HttpGet]
-        [Route("VratiSvaPravnaLica")]
+        [Route("VratiSvaFizickaLica")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult VratiSvaPravnaLica()
+        public IActionResult VratiSvaFizickaLica()
         {
-            (bool isError, var pravnici, ErrorMessage? error) = DataProvider.VratiSvaPravnaLica();
+            (bool isError, var lica, ErrorMessage? error) = DataProvider.VratiSvaFizickaLica();
 
             if (isError)
             {
                 return StatusCode(error?.StatusCode ?? 400, error?.Message);
             }
 
-            return Ok(pravnici);
+            return Ok(lica);
         }
 
         [HttpPost]
-        [Route("DodajNovoPravnoLice")]
+        [Route("DodajNovoFizickoLice")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult DodajNovoPravnoLice([FromBody] PravnoLiceView p)
+        public IActionResult DodajNovoFizickoLice([FromBody] FizickoLiceView p)
         {
-            var data = DataProvider.DodajNovoPravnoLice(p);
+            var data = DataProvider.DodajNovoFizickoLice(p);
 
             if (data.IsError)
             {
                 return StatusCode(data.Error.StatusCode, data.Error.Message);
             }
 
-            return StatusCode(201, $"Uspešno dodato pravno lice.");
+            return StatusCode(201, $"Uspešno dodato fizicko lice. JMBG: {p.JMBG}");
         }
 
         [HttpGet]
-        [Route("VratiPravnoLice/{pib}")]
+        [Route("VratiFizickoLice/{jmbg}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public  IActionResult VratiPravnoLice(string pib)
+        public IActionResult VratiFizickoLice(string jmbg)
         {
-            (bool isError, var pravnoLice, ErrorMessage? error) = DataProvider.VratiPravnoLice(pib);
+            (bool isError, var lice, ErrorMessage? error) = DataProvider.VratiFizickoLice(jmbg);
 
             if (isError)
             {
                 return StatusCode(error?.StatusCode ?? 400, error?.Message);
             }
 
-            return Ok(pravnoLice);
+            return Ok(lice);
         }
 
         [HttpPut]
-        [Route("IzmeniPravnoLice/{pib}")]
+        [Route("IzmeniFizickoLice/{jmbg}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult IzmeniPravnoLice(string pib, [FromBody] PravnoLiceView p)
+        public IActionResult IzmeniFizickoLice(string jmbg, [FromBody] FizickoLiceView p)
         {
-            (bool isError, var pravnoLice, ErrorMessage? error) = DataProvider.IzmeniPravnoLice(pib, p);
+            (bool isError, var lice, ErrorMessage? error) = DataProvider.IzmeniFizickoLice(jmbg, p);
 
             if (isError)
             {
                 return StatusCode(error?.StatusCode ?? 400, error?.Message);
             }
 
-            if (pravnoLice == null)
+            if (lice == null)
             {
-                return BadRequest("Pravno lice nije validno.");
+                return BadRequest("Fizicko lice nije validno.");
             }
 
-            return Ok($"Uspešno azurirano pravno lice.");
+            return Ok($"Uspešno azurirano fizicko lice.");
         }
 
         [HttpDelete]
-        [Route("ObrisiPravnoLice/{pib}")]
+        [Route("ObrisiFizickoLice/{jmbg}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult ObrisiPravnoLice(string pib)
+        public IActionResult ObrisiFizickoLice(string jmbg)
         {
-            var data = DataProvider.ObrisiPravnoLice(pib);
+            var data = DataProvider.ObrisiFizickoLice(jmbg);
 
             if (data.IsError)
             {
                 return StatusCode(data.Error.StatusCode, data.Error.Message);
             }
 
-            return StatusCode(200, $"Uspešno obrisano pravno lice.");
+            return StatusCode(200, $"Uspešno obrisano fizicko lice. JMBG: {jmbg}");
         }
     }
 }

@@ -8,12 +8,16 @@ namespace StanNaDanWebAPIService.Controllers
     public class VlasnikController : ControllerBase
     {
         [HttpDelete]
-        [Route("ObrisiVlasnika/{jmbg}/{pib}")]
+        [Route("ObrisiVlasnika")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult ObrisiVlasnika(string jmbg, string pib)
+        public IActionResult ObrisiVlasnika([FromQuery] string? jmbg = null, [FromQuery] string? pib = null)
         {
+            if (string.IsNullOrEmpty(jmbg) && string.IsNullOrEmpty(pib))
+            {
+                return BadRequest("Morate uneti JMBG ili PIB.");
+            }
             var data = DataProvider.ObrisiVlasnika(jmbg, pib);
 
             if (data.IsError)
