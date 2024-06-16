@@ -7,22 +7,22 @@ namespace StanNaDanWebAPIService.Controllers
     [Route("[controller]")]
     public class IznajmljenaSobaController : ControllerBase
     {
-        [HttpPost]
-        [Route("DodajIznajmljenuSobu/{mbrAgenta}/{idNekretnine}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DodajIznajmljenuSobu(string mbrAgenta, int idNekretnine, [FromBody] IznajmljenaSobaView p, List<int> idSoba, int? idSpoljnog = null)
-        {
-            var data = await DataProvider.DodajIznajmljenuSobuAsync(p, idNekretnine, idSoba, mbrAgenta, idSpoljnog);
+        //[HttpPost]
+        //[Route("DodajIznajmljenuSobu/{mbrAgenta}/{idNekretnine}")]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //public async Task<IActionResult> DodajIznajmljenuSobu(string mbrAgenta, int idNekretnine, [FromBody] IznajmljenaSobaView p, List<int> idSoba, int? idSpoljnog = null)
+        //{
+        //    var data = await DataProvider.DodajIznajmljenuSobuAsync(p, idNekretnine, idSoba, mbrAgenta, idSpoljnog);
 
-            if (data.IsError)
-            {
-                return StatusCode(data.Error.StatusCode, data.Error.Message);
-            }
+        //    if (data.IsError)
+        //    {
+        //        return StatusCode(data.Error.StatusCode, data.Error.Message);
+        //    }
 
-            return StatusCode(201, $"Uspešno dodata iznajmljena soba.");
-        }
+        //    return StatusCode(201, $"Uspešno dodata iznajmljena soba.");
+        //}
 
         
 

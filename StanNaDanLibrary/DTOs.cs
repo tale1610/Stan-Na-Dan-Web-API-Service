@@ -6,8 +6,7 @@ public class PoslovnicaView
     public int ID { get; set; }
     public string? Adresa { get; set; }
     public string? RadnoVreme { get; set; }
-    public SefView? Sef { get; set; }//za sad neka ima oba pa cemo da resavamo redom ovo sam ostavio da ne bi odjednom imao 400 errora
-    public string MBR_Sefa { get; set; }
+    public SefDTO? Sef { get; set; }//za sad neka ima oba pa cemo da resavamo redom ovo sam ostavio da ne bi odjednom imao 400 errora
     public IList<ZaposleniView>? Zaposleni { get; set; }
     public IList<KvartView>? Kvartovi { get; set; }
 
@@ -24,26 +23,7 @@ public class PoslovnicaView
             ID = poslovnica.ID;
             Adresa = poslovnica.Adresa;
             RadnoVreme = poslovnica.RadnoVreme;
-            MBR_Sefa = poslovnica.Sef != null ? poslovnica.Sef.MBR : "Nema sefa";
-            //if(poslovnica.Sef != null)
-            //{
-            //    Sef = new()
-            //    {
-            //        DatumPostavljanja = poslovnica.Sef.DatumPostavljanja,
-            //        MBR = poslovnica.Sef.MBR,
-            //        DatumZaposlenja = poslovnica.Sef.DatumZaposlenja,
-            //        Ime = poslovnica.Sef.Ime,
-            //        Prezime = poslovnica.Sef.Prezime,
-            //        Poslovnica = new()
-            //        {
-            //            Adresa = poslovnica.Adresa,
-            //            ID = poslovnica.ID,
-            //            RadnoVreme = poslovnica.RadnoVreme
-            //        }
-            //    };
-            //}
-            
-            //Sef = poslovnica.Sef != null ? new SefView(poslovnica.Sef) : null;
+            Sef = poslovnica.Sef != null ? new SefDTO(poslovnica.Sef) : null;
             //Zaposleni = poslovnica.Zaposleni.Select(z => new ZaposleniView(z)).ToList();
             //Kvartovi = poslovnica.Kvartovi.Select(k => new KvartView(k)).ToList();
         }
@@ -95,7 +75,7 @@ public class SefView : ZaposleniView
 public class AgentView : ZaposleniView
 {
     public string? StrucnaSprema { get; set; }
-    public AgentView()
+    public AgentView() : base()
     {
     }
     public AgentView(Agent? agent) : base(agent)
@@ -106,7 +86,57 @@ public class AgentView : ZaposleniView
         }
     }
 }
+public class ZaposleniDTO
+{
+    public string? MBR { get; set; }
+    public string? Ime { get; set; }
+    public string? Prezime { get; set; }
+    public DateTime DatumZaposlenja { get; set; }
 
+    public ZaposleniDTO()
+    {
+    }
+    public ZaposleniDTO(Zaposleni? zaposleni)
+    {
+        if (zaposleni != null)
+        {
+            MBR = zaposleni.MBR;
+            Ime = zaposleni.Ime;
+            Prezime = zaposleni.Prezime;
+            DatumZaposlenja = zaposleni.DatumZaposlenja;
+        }
+    }
+}
+
+public class SefDTO : ZaposleniDTO
+{
+    public DateTime? DatumPostavljanja { get; set; }
+    public SefDTO() : base()
+    {
+    }
+    public SefDTO(Sef? sef) : base(sef)
+    {
+        if (sef != null)
+        {
+            DatumPostavljanja = sef.DatumPostavljanja;
+        }
+    }
+}
+
+public class AgentDTO : ZaposleniDTO
+{
+    public string? StrucnaSprema { get; set; }
+    public AgentDTO() : base()
+    {
+    }
+    public AgentDTO(Agent? agent) : base(agent)
+    {
+        if (agent != null)
+        {
+            StrucnaSprema = agent.StrucnaSprema;
+        }
+    }
+}
 //public class ZaposleniOstaloView : ZaposleniView
 //{
 //    public ZaposleniOstaloView()

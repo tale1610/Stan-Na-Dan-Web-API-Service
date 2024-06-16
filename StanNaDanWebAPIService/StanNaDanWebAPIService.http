@@ -11,3 +11,18 @@ GET {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/VratiSvePoslovnice
 Accept: application/json
 ### Vracanje svih poslovnica
 
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/VratiPoslovnicu/1
+Accept: application/json
+### Vraca poslovnicu na osnovu ID
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/IzmeniPoslovnicu/1
+Content-Type: application/json
+
+{
+  "adresa" : "NIS, Milojka Lesnjanina 18",
+  "radnoVreme" : "12:00 - 04:00h"
+}
+### Menja adresu i radno vreme poslovnice sa ID 1
+

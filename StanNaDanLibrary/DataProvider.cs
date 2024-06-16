@@ -700,7 +700,7 @@ public class DataProvider
                     ID = spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.ID,
                     Adresa = spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Adresa,
                     RadnoVreme = spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.RadnoVreme,
-                    Sef = new SefView(spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Sef == null ? spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Sef : null)
+                    Sef = new SefDTO(spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Sef == null ? spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Sef : null)
                 };
                 AgentView agentAngazovanjaView = new AgentView
                 {
