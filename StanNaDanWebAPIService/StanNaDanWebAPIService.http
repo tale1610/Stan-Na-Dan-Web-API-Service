@@ -38,6 +38,9 @@ Content-Type: application/json
 ### Menja adresu i radno vreme poslovnice sa ID 1
 
 
+###-----------------------------------KVART--------------------------------------------------
+
+
 
 GET {{StanNaDanWebAPIService_HostAddress}}/Kvart/VratiSveKvartove
 Accept: application/json
@@ -126,6 +129,9 @@ Content-Type: application/json
 
 DELETE {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/ObrisiPravnoLice/129496989
 ### Brisemo kvart sa ID 129496989
+
+
+###-----------------------------------FIZICKO_LICE----------------------------------------
 
 
 GET {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/VratiSvaFizickaLica
@@ -285,5 +291,94 @@ Content-Type:application/json
 }
 ### Testira izmenu podataka o sefu
 
+
   
 ###-----------------------------------NEKRETNINE---------------------------------------------
+
+  
+  
+###---------------------------------DODATNA_OPREMA-------------------------------------------
+
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/DodajDodatnuOpremu/1
+Content-Type:application/json
+
+{
+  "mbr": "1107002732577",
+  "ime": "Milorad",
+  "prezime": "Dodati",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "strucnaSprema": "Diplomirani ekonomista"
+}
+### Testira dodavanje novog agenta i njegovo zaposljavanje u poslovnicu sa ID 41
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/VratiSvuDodatnuOpremuNekretnine/1
+Accept:application/json
+### Testira vracanje svih sefova iz baze podataka
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/VratiDodatnuOpremu/1
+Accept:application/json
+### Testira vracanje sefa na osnovu maticnog broja
+
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/IzmeniDodatnuOpremu/1107002732523
+Content-Type:application/json
+
+{
+  "ime": "Milorad",
+  "prezime": "IzmenjeniSef",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "datumPostavljanja": "2024-06-16T01:15:14.547Z"
+}
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/ObrisiDodatnuOpremu/1107002732599
+### Testira brisanje zaposlenog sa zadatim ID (taj koji se brise zove se Obrisi Obrisi)
+
+
+
+###---------------------------------PARKING-----------------------------------------------------------
+
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Parking/DodajParking/1
+Content-Type:application/json
+
+{
+  "besplatan": false,
+  "cena": 1700,
+  "uSastavuNekretnine": true,
+  "uSastavuJavnogParkinga": false
+}
+### Testira dodavanje novog agenta i njegovo zaposljavanje u poslovnicu sa ID 41
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Parking/VratiSveParkingeNekretnine/1
+Accept:application/json
+### Testira vracanje svih parking mesta iz baze podataka
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Parking/VratiParking/1/1
+Accept:application/json
+### Testira vracanje sefa na osnovu maticnog broja
+
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Parking/IzmeniParking/1
+Content-Type:application/json
+
+{
+  "ime": "Milorad",
+  "prezime": "IzmenjeniSef",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "datumPostavljanja": "2024-06-16T01:15:14.547Z"
+}
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Parking/ObrisiParking/1/1
+### Testira brisanje zaposlenog sa zadatim ID (taj koji se brise zove se Obrisi Obrisi)
+
