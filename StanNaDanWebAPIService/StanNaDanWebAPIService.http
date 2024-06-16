@@ -5,6 +5,7 @@ Accept: application/json
 
 ###
 
+###-----------------------------------POSLOVNICE---------------------------------------------
 
 
 GET {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/VratiSvePoslovnice
@@ -15,6 +16,16 @@ Accept: application/json
 GET {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/VratiPoslovnicu/1
 Accept: application/json
 ### Vraca poslovnicu na osnovu ID
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/DodajPoslovnicu
+Content-Type: application/json
+
+{
+  "adresa" : "PIROT, Slavonska 98",
+  "radnoVreme" : "13:00 - 05:00h"
+}
+### Testira dodavanje nove poslovnice
 
 
 PUT {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/IzmeniPoslovnicu/1
@@ -174,3 +185,105 @@ DELETE {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/ObrisiFizickoLice/1234
 ### Brisemo fizicko lice sa JMBG 1234567890444
 
 
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/ObrisiPoslovnicu/45
+### Testiranje brisanja poslovnice sa id 45, na adresi slavonska 88
+
+###-----------------------------------ZAPOSLENI---------------------------------------------
+  
+GET {{StanNaDanWebAPIService_HostAddress}}/Zaposleni/VratiSveZaposlene
+Accept: application/json
+### Testira vracanje i prikaz svih zaposlenih u bazi
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Zaposleni/VratiSveZaposlenePoslovnice/1
+Accept:application/json
+### Testira vracanje zaposlenih iz poslovnice ciji id je prosledjen
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Zaposleni/VratiZaposlenog/4444444444444
+Accept:application/json
+### Testira vracanje zaposlenog na osnovu maticnog broja
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Zaposleni/ObrisiZaposlenog/1107002732599
+### Testira brisanje zaposlenog sa zadatim ID (taj koji se brise zove se Obrisi Obrisi)
+### (Napomena) Dodavanje zaposlenih se vrsi kroz funkcije dodajAgenta i dodajSefa kroz respektivne kontrolere
+
+
+###-----------------------------------AGENTI---------------------------------------------
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Agent/VratiSveAgente
+Accept:application/json
+### Testira vracanje svih agenta iz baze podataka
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Agent/VratiAgenta/1107002732566
+Accept:application/json
+### Testira vracanje agenta na osnovu maticnog broja
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Agent/DodajAgenta/41
+Content-Type:application/json
+
+{
+  "mbr": "1107002732577",
+  "ime": "Milorad",
+  "prezime": "Dodati",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "strucnaSprema": "Diplomirani ekonomista"
+}
+### Testira dodavanje novog agenta i njegovo zaposljavanje u poslovnicu sa ID 41
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Agent/IzmeniAgenta/1107002732577
+Content-Type:application/json
+
+{
+  "ime": "Milorad",
+  "prezime": "Izmenjeni",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "strucnaSprema": "Master ekonomista"
+}
+###Testira izmenu agenta na osnovu maticnog broja
+### (Napomena) brisanje agenta, kao i brisanje sefa, vrsi se kroz prethodno demonstriranu funkciju ObrisiZaposlenog
+
+
+###-----------------------------------SEFOVI---------------------------------------------
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Sef/VratiSveSefove
+Accept:application/json
+### Testira vracanje svih sefova iz baze podataka
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Sef/VratiSefa/1111111111111
+Accept:application/json
+### Testira vracanje sefa na osnovu maticnog broja
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Sef/DodajNovogSefa/41
+Content-Type:application/json
+
+{
+  "mbr": "1107002732523",
+  "ime": "Milorad",
+  "prezime": "DodatiSef",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "datumPostavljanja": "2024-06-16T01:15:14.547Z"
+}
+### Testira dodavanje novog sefa i njegovo postavljanje u poslovnicu sa ID 41
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Sef/IzmeniSefa/1107002732523
+Content-Type:application/json
+
+{
+  "ime": "Milorad",
+  "prezime": "IzmenjeniSef",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "datumPostavljanja": "2024-06-16T01:15:14.547Z"
+}
+### Testira izmenu podataka o sefu
+
+  
+###-----------------------------------NEKRETNINE---------------------------------------------

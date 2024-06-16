@@ -6,7 +6,7 @@ public class PoslovnicaView
     public int ID { get; set; }
     public string? Adresa { get; set; }
     public string? RadnoVreme { get; set; }
-    public SefDTO? Sef { get; set; }//za sad neka ima oba pa cemo da resavamo redom ovo sam ostavio da ne bi odjednom imao 400 errora
+    public SefDTO? Sef { get; set; }
     public IList<ZaposleniView>? Zaposleni { get; set; }
     public IList<KvartView>? Kvartovi { get; set; }
 
@@ -30,6 +30,28 @@ public class PoslovnicaView
     }
 }
 
+public class PoslovnicaDTO
+{
+    public int ID { get; set; }
+    public string? Adresa { get; set; }
+    public string? RadnoVreme { get; set; }
+
+    public PoslovnicaDTO()
+    {
+
+    }
+
+    public PoslovnicaDTO(Poslovnica? poslovnica) : this()
+    {
+        if (poslovnica != null)
+        {
+            ID = poslovnica.ID;
+            Adresa = poslovnica.Adresa;
+            RadnoVreme = poslovnica.RadnoVreme;
+        }
+    }
+}
+
 #endregion
 
 #region Zaposleni
@@ -39,7 +61,7 @@ public class ZaposleniView
     public string? Ime { get; set; }
     public string? Prezime { get; set; }
     public DateTime DatumZaposlenja { get; set; }
-    public PoslovnicaView? Poslovnica { get; set; }
+    public PoslovnicaDTO? Poslovnica { get; set; }
 
     public ZaposleniView()
     {
@@ -52,7 +74,7 @@ public class ZaposleniView
             Ime = zaposleni.Ime;
             Prezime = zaposleni.Prezime;
             DatumZaposlenja = zaposleni.DatumZaposlenja;
-            Poslovnica = new PoslovnicaView(zaposleni.Poslovnica);
+            Poslovnica = new PoslovnicaDTO(zaposleni.Poslovnica);
         }
     }
 }
