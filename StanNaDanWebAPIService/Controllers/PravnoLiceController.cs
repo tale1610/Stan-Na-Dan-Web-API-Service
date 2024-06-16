@@ -29,7 +29,7 @@ namespace StanNaDanWebAPIService.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult DodajNovoPravnoLice([FromBody] PravnoLiceView p)
+        public IActionResult DodajNovoPravnoLice([FromQuery]string banka, [FromQuery]string brojRacuna, [FromBody] PravnoLiceView p)
         {
             var data = DataProvider.DodajNovoPravnoLice(p);
 
@@ -46,7 +46,7 @@ namespace StanNaDanWebAPIService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> VratiPravnoLice(string pib)
+        public  IActionResult VratiPravnoLice(string pib)
         {
             (bool isError, var pravnoLice, ErrorMessage? error) = DataProvider.VratiPravnoLice(pib);
 
@@ -63,9 +63,9 @@ namespace StanNaDanWebAPIService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult IzmeniSefa(string mbr, [FromBody] PravnoLiceView p)
+        public IActionResult IzmeniPravnoLice(string pib, [FromBody] PravnoLiceView p)
         {
-            (bool isError, var pravnoLice, ErrorMessage? error) = DataProvider.IzmeniPravnoLice(mbr, p);
+            (bool isError, var pravnoLice, ErrorMessage? error) = DataProvider.IzmeniPravnoLice(pib, p);
 
             if (isError)
             {
@@ -74,10 +74,10 @@ namespace StanNaDanWebAPIService.Controllers
 
             if (pravnoLice == null)
             {
-                return BadRequest("Sef nije validan.");
+                return BadRequest("Pravno lice nije validno.");
             }
 
-            return Ok($"Uspešno ažuriran sef.");
+            return Ok($"Uspešno azurirano pravno lice.");
         }
 
         [HttpDelete]

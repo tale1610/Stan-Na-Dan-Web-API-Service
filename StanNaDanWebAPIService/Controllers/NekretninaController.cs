@@ -7,22 +7,22 @@ namespace StanNaDanWebAPIService.Controllers
     [Route("[controller]")]
     public class NekretninaController : ControllerBase
     {
-        [HttpPost]
-        [Route("DodajNekretninu/{idKvarta}/{idVlasnika}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult DodajNekretninu(int idKvarta, int idVlasnika, [FromBody] KucaView k, StanView s)
-        {
-            var data = DataProvider.DodajNekretninu(idKvarta, idVlasnika, k, s);
+        //[HttpPost]
+        //[Route("DodajNekretninu/{idKvarta}/{idVlasnika}")]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //public IActionResult DodajNekretninu(int idKvarta, int idVlasnika, [FromBody] KucaView k, StanView s)
+        //{
+        //    var data = DataProvider.DodajNekretninu(idKvarta, idVlasnika, k, s);
 
-            if (data.IsError)
-            {
-                return StatusCode(data.Error.StatusCode, data.Error.Message);
-            }
+        //    if (data.IsError)
+        //    {
+        //        return StatusCode(data.Error.StatusCode, data.Error.Message);
+        //    }
 
-            return StatusCode(201, $"Uspešno dodata nekretnina.");
-        }
+        //    return StatusCode(201, $"Uspešno dodata nekretnina.");
+        //}
 
         [HttpGet]
         [Route("VratiSveNekretnine")]

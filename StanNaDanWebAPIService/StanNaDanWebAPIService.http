@@ -4,3 +4,10 @@ GET {{StanNaDanWebAPIService_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/VratiSvePoslovnice
+Accept: application/json
+### Vracanje svih poslovnica
+

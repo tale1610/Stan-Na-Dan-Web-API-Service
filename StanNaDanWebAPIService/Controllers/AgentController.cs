@@ -80,7 +80,7 @@ namespace StanNaDanWebAPIService.Controllers
                 return BadRequest("Agent nije validan.");
             }
 
-            return Ok($"Uspešno promenjen agent sa mbr: {agent.MBR}");
+            return Ok($"Uspešno promenjen agent sa mbr: {agent.Ime} {agent.Prezime}");
         }
 
     }

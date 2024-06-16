@@ -6,7 +6,8 @@ public class PoslovnicaView
     public int ID { get; set; }
     public string? Adresa { get; set; }
     public string? RadnoVreme { get; set; }
-    public SefView? Sef { get; set; }
+    public SefView? Sef { get; set; }//za sad neka ima oba pa cemo da resavamo redom ovo sam ostavio da ne bi odjednom imao 400 errora
+    public string MBR_Sefa { get; set; }
     public IList<ZaposleniView>? Zaposleni { get; set; }
     public IList<KvartView>? Kvartovi { get; set; }
 
@@ -16,14 +17,33 @@ public class PoslovnicaView
         Kvartovi = new List<KvartView>();
     }
 
-    public PoslovnicaView(Poslovnica? poslovnica)
+    public PoslovnicaView(Poslovnica? poslovnica) : this()
     {
         if (poslovnica != null)
         {
             ID = poslovnica.ID;
             Adresa = poslovnica.Adresa;
             RadnoVreme = poslovnica.RadnoVreme;
-            //Sef = poslovnica.Sef == null ? new SefView(poslovnica.Sef) : null;
+            MBR_Sefa = poslovnica.Sef != null ? poslovnica.Sef.MBR : "Nema sefa";
+            //if(poslovnica.Sef != null)
+            //{
+            //    Sef = new()
+            //    {
+            //        DatumPostavljanja = poslovnica.Sef.DatumPostavljanja,
+            //        MBR = poslovnica.Sef.MBR,
+            //        DatumZaposlenja = poslovnica.Sef.DatumZaposlenja,
+            //        Ime = poslovnica.Sef.Ime,
+            //        Prezime = poslovnica.Sef.Prezime,
+            //        Poslovnica = new()
+            //        {
+            //            Adresa = poslovnica.Adresa,
+            //            ID = poslovnica.ID,
+            //            RadnoVreme = poslovnica.RadnoVreme
+            //        }
+            //    };
+            //}
+            
+            //Sef = poslovnica.Sef != null ? new SefView(poslovnica.Sef) : null;
             //Zaposleni = poslovnica.Zaposleni.Select(z => new ZaposleniView(z)).ToList();
             //Kvartovi = poslovnica.Kvartovi.Select(k => new KvartView(k)).ToList();
         }
