@@ -3712,7 +3712,7 @@ public class DataProvider
         }
     }
 
-    public async static Task<Result<bool, ErrorMessage>> IzmeniNajamAsync(NajamView izmenjenNajam)
+    public async static Task<Result<bool, ErrorMessage>> IzmeniNajamAsync(int idNajma, NajamView izmenjenNajam)
     {
         ISession? session = null;
         try
@@ -3720,7 +3720,7 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
-                Najam najam = await session.GetAsync<Najam>(izmenjenNajam.IdNajma);
+                Najam najam = await session.GetAsync<Najam>(idNajma);
                 if (najam != null)
                 {
                     najam.DatumPocetka = izmenjenNajam.DatumPocetka;
