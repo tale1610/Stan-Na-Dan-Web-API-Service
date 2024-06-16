@@ -12,7 +12,7 @@ namespace StanNaDanWebAPIService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult VratiSveAgente()
+        public IActionResult VratiSveZaposlene()
         {
             (bool isError, var zaposleni, ErrorMessage? error) = DataProvider.VratiSveZaposlene();
 
@@ -25,7 +25,24 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpGet]
-        [Route("VratiZaposlenogAsync/{mbr}")]
+        [Route("VratiSveZaposlenePoslovnice/{idPoslovnice}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult VratiSveZaposlenePoslovnice(int idPoslovnice)
+        {
+            (bool isError, var zaposleni, ErrorMessage? error) = DataProvider.vratiSveZaposlenePoslovnice(idPoslovnice);
+
+            if (isError)
+            {
+                return StatusCode(error?.StatusCode ?? 400, error?.Message);
+            }
+
+            return Ok(zaposleni);
+        }
+
+        [HttpGet]
+        [Route("VratiZaposlenog/{mbr}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -57,5 +74,11 @@ namespace StanNaDanWebAPIService.Controllers
 
             return StatusCode(200, $"Uspešno obrisan zaposleni. MBR: {mbr}");
         }
+
+
+
     }
+
+
+
 }

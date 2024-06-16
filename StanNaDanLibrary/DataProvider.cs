@@ -221,6 +221,48 @@ public class DataProvider
         return zaposleniToReturn;
     }
 
+    public static Result<List<ZaposleniView>, ErrorMessage> vratiSveZaposlenePoslovnice(int idPoslovnice)
+    {
+        List<ZaposleniView> zaposleniToReturn = new List<ZaposleniView>();
+        ISession? session = null;
+        try
+        {
+            session = DataLayer.GetSession();
+            if (session != null && session.IsOpen)
+            {
+                IEnumerable<StanNaDanLibrary.Entiteti.Sef> sviSefovi = from sef
+                                                                in session.Query<StanNaDanLibrary.Entiteti.Sef>()
+                                                                where sef.Poslovnica.ID == idPoslovnice
+                                                                select sef;
+
+                foreach (StanNaDanLibrary.Entiteti.Sef z in sviSefovi)
+                {
+                    zaposleniToReturn.Add(new SefView(z));
+                }
+
+                IEnumerable<StanNaDanLibrary.Entiteti.Agent> sviAgenti = from agent
+                                                                  in session.Query<StanNaDanLibrary.Entiteti.Agent>()
+                                                                  where agent.Poslovnica.ID == idPoslovnice
+                                                                  select agent;
+
+                foreach (StanNaDanLibrary.Entiteti.Agent z in sviAgenti)
+                {
+                    zaposleniToReturn.Add(new AgentView(z));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            return "Nemoguće vratiti sve zaposlene ove prodavnice.".ToError(400);
+        }
+        finally
+        {
+            session?.Close();
+        }
+
+        return zaposleniToReturn;
+    }
+
     public static async Task<Result<ZaposleniView, ErrorMessage>> VratiZaposlenogAsync(string mbr)
     {
         ISession? s = null;
@@ -279,7 +321,10 @@ public class DataProvider
             }
 
             Zaposleni zaposleni = await s.LoadAsync<Zaposleni>(mbr);
-
+            if (zaposleni.Poslovnica!.Sef != null && zaposleni.Poslovnica.Sef.MBR == zaposleni.MBR )
+            {
+                zaposleni.Poslovnica.Sef = null;
+            }
             await s.DeleteAsync(zaposleni);
             await s.FlushAsync();
         }
@@ -695,12 +740,12 @@ public class DataProvider
                     IdSaradnika = idSpoljnogSaradnika
                 };
                 SpoljniSaradnik spoljniSaradnik = session.Load<SpoljniSaradnik>(ssID);
-                PoslovnicaView poslovnicaView = new PoslovnicaView
+                PoslovnicaDTO poslovnicaDTO = new PoslovnicaDTO
                 {
                     ID = spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.ID,
                     Adresa = spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Adresa,
                     RadnoVreme = spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.RadnoVreme,
-                    Sef = new SefDTO(spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Sef == null ? spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Sef : null)
+                    //Sef = new SefDTO(spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Sef == null ? spoljniSaradnik.ID.AgentAngazovanja.Poslovnica.Sef : null)
                 };
                 AgentView agentAngazovanjaView = new AgentView
                 {
@@ -709,7 +754,7 @@ public class DataProvider
                     Prezime = spoljniSaradnik.ID.AgentAngazovanja.Prezime,
                     MBR = spoljniSaradnik.ID.AgentAngazovanja.MBR,
                     StrucnaSprema = spoljniSaradnik.ID.AgentAngazovanja.StrucnaSprema,
-                    Poslovnica = poslovnicaView
+                    Poslovnica = poslovnicaDTO
                 };
                 SpoljniSaradnikView spoljniToReturn = new SpoljniSaradnikView
                 {

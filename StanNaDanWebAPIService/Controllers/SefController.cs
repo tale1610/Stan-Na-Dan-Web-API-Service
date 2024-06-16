@@ -25,7 +25,7 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpGet]
-        [Route("VratiSefove/{mbr}")]
+        [Route("VratiSefa/{mbr}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -55,7 +55,7 @@ namespace StanNaDanWebAPIService.Controllers
                 return StatusCode(data.Error.StatusCode, data.Error.Message);
             }
 
-            return StatusCode(201, $"Uspešno dodat kvart. ID: {p.MBR}");
+            return StatusCode(201, $"Uspešno dodat sef sa ID: {p.MBR} koji sefuje poslovnicom sa id {idPoslovnice}");
         }
 
         [HttpPut]
