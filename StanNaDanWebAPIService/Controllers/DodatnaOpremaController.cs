@@ -9,13 +9,13 @@ namespace StanNaDanWebAPIService.Controllers
     public class DodatnaOpremaController : ControllerBase
     {
         [HttpPost]
-        [Route("DodajDodatnuOpremu/{idNekretnine}")]
+        [Route("DodajDodatnuOpremu/{idNekretnine}/{idOpreme}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult DodajDodatnuOpremu(int idNekretnine, [FromBody] DodatnaOpremaView n)
+        public IActionResult DodajDodatnuOpremu(int idNekretnine, int idOpreme, [FromBody] DodatnaOpremaView n)
         {
-            var data = DataProvider.DodajDodatnuOpremu(n, idNekretnine);
+            var data = DataProvider.DodajDodatnuOpremu(n, idNekretnine, idOpreme);
 
             if (data.IsError)
             {
@@ -43,13 +43,13 @@ namespace StanNaDanWebAPIService.Controllers
         }
         
         [HttpGet]
-        [Route("VratiDodatnuOpremu/{id}")]
+        [Route("VratiDodatnuOpremu/{idNekretnine}/{idDodatneOpreme}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult VratiDodatnuOpremu([FromRoute] DodatnaOpremaId id)
+        public IActionResult VratiDodatnuOpremu(int idNekretnine, int idDodatneOpreme)
         {
-            (bool isError, var dodatnaOprema, ErrorMessage? error) = DataProvider.VratiDodatnuOpremu(id);
+            (bool isError, var dodatnaOprema, ErrorMessage? error) = DataProvider.VratiDodatnuOpremu(idNekretnine, idDodatneOpreme);
 
             if (isError)
             {
@@ -61,13 +61,13 @@ namespace StanNaDanWebAPIService.Controllers
 
 
         [HttpPut]
-        [Route("IzmeniDodatnuOpremu/{idNekretnine}")]
+        [Route("IzmeniDodatnuOpremu/{idNekretnine}/{idOpreme}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult IzmeniDodatnuOpremu(int idNekretnine, DodatnaOpremaView o)
+        public IActionResult IzmeniDodatnuOpremu(int idNekretnine,int idOpreme, DodatnaOpremaView o)
         {
-            (bool isError, var dodatnaOprema, ErrorMessage? error) = DataProvider.IzmeniDodatnuOpremu(o, idNekretnine);
+            (bool isError, var dodatnaOprema, ErrorMessage? error) = DataProvider.IzmeniDodatnuOpremu(o, idNekretnine, idOpreme);
 
             if (isError)
             {
@@ -83,13 +83,13 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpDelete]
-        [Route("ObrisiDodatnuOpremu/{idOpreme}/{idNretnine}")]
+        [Route("ObrisiDodatnuOpremu/{idNekretnine}/{idOpreme}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult ObrisiDodatnuOpremu(int idOpreme, int idNretnine)
+        public IActionResult ObrisiDodatnuOpremu(int idNekretnine, int idOpreme)
         {
-            var data = DataProvider.ObrisiDodatnuOpremu(idOpreme, idNretnine);
+            var data = DataProvider.ObrisiDodatnuOpremu(idNekretnine, idOpreme);
 
             if (data.IsError)
             {

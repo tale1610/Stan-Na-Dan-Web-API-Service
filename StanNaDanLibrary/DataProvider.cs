@@ -1,4 +1,6 @@
-﻿using NHibernate.Linq;
+﻿using NHibernate;
+using NHibernate.Hql.Ast.ANTLR.Tree;
+using NHibernate.Linq;
 using StanNaDanLibrary.Entiteti;
 
 namespace StanNaDanLibrary;
@@ -886,7 +888,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> DodajNovogSpoljnogSaradnika(SpoljniSaradnikView ssView, string mbrAgentaAngazovanja)
+    public static Result<bool, ErrorMessage> DodajNovogSpoljnogSaradnika(SpoljniSaradnikView ssView, string mbrAgentaAngazovanja, int idSpoljnog)
     {
         ISession? session = null;
         try
@@ -899,7 +901,7 @@ public class DataProvider
                 SpoljniSaradnikId ssID = new SpoljniSaradnikId
                 {
                     AgentAngazovanja = agent,
-                    IdSaradnika = ssView.ID.IdSaradnika
+                    IdSaradnika = idSpoljnog
                 };
                 SpoljniSaradnik spoljniSaradnik = new SpoljniSaradnik
                 {
@@ -924,6 +926,60 @@ public class DataProvider
         catch (Exception ex)
         {
             return $"Greška prilikom dodavanja novog spoljnog saradnika: {ex.Message}.".ToError(400);
+        }
+        finally
+        {
+            session?.Close();
+            session?.Dispose();
+        }
+    }
+
+    public static Result<SpoljniSaradnikView, ErrorMessage> IzmeniSpoljnogSaradnika(string mbr, int idSpoljnog, SpoljniSaradnikView ssView)
+    {
+        ISession? session = null;
+        try
+        {
+            session = DataLayer.GetSession();
+
+            if (session != null && session.IsOpen)
+            {
+                
+                Agent agent = session.Get<Agent>(mbr);
+
+                if (agent != null)
+                {
+                    SpoljniSaradnikId ssID = new()
+                    { AgentAngazovanja = agent, IdSaradnika = idSpoljnog };
+
+                    SpoljniSaradnik spoljniSaradnik = session.Get<SpoljniSaradnik>(ssID);
+
+                    if(spoljniSaradnik != null)
+                    {
+                        spoljniSaradnik.Ime = ssView.Ime;
+                        spoljniSaradnik.Prezime = ssView.Prezime;
+                        spoljniSaradnik.Telefon = ssView.Telefon;
+                        spoljniSaradnik.DatumAngazovanja = ssView.DatumAngazovanja;
+                        spoljniSaradnik.ProcenatOdNajma = ssView.ProcenatOdNajma;
+                    }
+
+                    session.Update(spoljniSaradnik);
+                    session.Flush();
+
+                    return ssView;
+                }
+                else
+                {
+                    return $"Agent sa MBR: {mbr} nije pronađen.".ToError(404);
+                }
+            }
+            else
+            {
+                return "Nemoguće otvoriti sesiju.".ToError(403);
+            }
+        }
+        catch (Exception ex)
+        {
+            return $"Greška prilikom izmene agenta: {ex.Message}".ToError(400);
         }
         finally
         {
@@ -1852,7 +1908,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> IzmeniStan(StanView izmenjenStan, int idVlasnika)
+    public static Result<bool, ErrorMessage> IzmeniStan(StanView izmenjenStan, int idNekretnine)
     {
         ISession? session = null;
         try
@@ -1860,25 +1916,21 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
-                Stan? stan = session.Get<Stan>(izmenjenStan.IdNekretnine);
-                Vlasnik? vlasnik = session.Get<Vlasnik>(idVlasnika);
+                Stan? stan = session.Get<Stan>(idNekretnine);
                 if (stan != null)
                 {
-                    if (vlasnik != null)
-                    {
-                        stan.Ulica = izmenjenStan.Ulica;
-                        stan.Broj = izmenjenStan.Broj;
-                        stan.Kvadratura = izmenjenStan.Kvadratura;
-                        stan.BrojTerasa = izmenjenStan.BrojTerasa;
-                        stan.BrojKupatila = izmenjenStan.BrojKupatila;
-                        stan.BrojSpavacihSoba = izmenjenStan.BrojSpavacihSoba;
-                        stan.PosedujeTV = izmenjenStan.PosedujeTV;
-                        stan.PosedujeInternet = izmenjenStan.PosedujeInternet;
-                        stan.PosedujeKuhinju = izmenjenStan.PosedujeKuhinju;
-                        stan.Vlasnik = vlasnik;
-                        stan.Sprat = izmenjenStan.Sprat;
-                        stan.PosedujeLift = izmenjenStan.PosedujeLift;
-                    }
+                    stan.Ulica = izmenjenStan.Ulica;
+                    stan.Broj = izmenjenStan.Broj;
+                    stan.Kvadratura = izmenjenStan.Kvadratura;
+                    stan.BrojTerasa = izmenjenStan.BrojTerasa;
+                    stan.BrojKupatila = izmenjenStan.BrojKupatila;
+                    stan.BrojSpavacihSoba = izmenjenStan.BrojSpavacihSoba;
+                    stan.PosedujeTV = izmenjenStan.PosedujeTV;
+                    stan.PosedujeInternet = izmenjenStan.PosedujeInternet;
+                    stan.PosedujeKuhinju = izmenjenStan.PosedujeKuhinju;
+                    stan.Sprat = izmenjenStan.Sprat;
+                    stan.PosedujeLift = izmenjenStan.PosedujeLift;
+                    
 
                     session.Update(stan);
                     session.Flush();
@@ -1905,7 +1957,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> IzmeniKucu(KucaView izmenjenaKuca, int idVlasnika)
+    public static Result<bool, ErrorMessage> IzmeniKucu(KucaView izmenjenaKuca, int idNekretnine)
     {
         ISession? session = null;
         try
@@ -1913,25 +1965,21 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
-                Kuca? kuca = session.Get<Kuca>(izmenjenaKuca.IdNekretnine);
-                Vlasnik? vlasnik = session.Get<Vlasnik>(idVlasnika);
+                Kuca? kuca = session.Get<Kuca>(idNekretnine);
                 if (kuca != null)
                 {
-                    if (vlasnik != null)
-                    {
-                        kuca.Ulica = izmenjenaKuca.Ulica;
-                        kuca.Broj = izmenjenaKuca.Broj;
-                        kuca.Kvadratura = izmenjenaKuca.Kvadratura;
-                        kuca.BrojTerasa = izmenjenaKuca.BrojTerasa;
-                        kuca.BrojKupatila = izmenjenaKuca.BrojKupatila;
-                        kuca.BrojSpavacihSoba = izmenjenaKuca.BrojSpavacihSoba;
-                        kuca.PosedujeTV = izmenjenaKuca.PosedujeTV;
-                        kuca.PosedujeInternet = izmenjenaKuca.PosedujeInternet;
-                        kuca.PosedujeKuhinju = izmenjenaKuca.PosedujeKuhinju;
-                        kuca.Vlasnik = vlasnik;
-                        kuca.Spratnos = izmenjenaKuca.Spratnost;
-                        kuca.PosedujeDvoriste = izmenjenaKuca.PosedujeDvoriste;
-                    }
+                    kuca.Ulica = izmenjenaKuca.Ulica;
+                    kuca.Broj = izmenjenaKuca.Broj;
+                    kuca.Kvadratura = izmenjenaKuca.Kvadratura;
+                    kuca.BrojTerasa = izmenjenaKuca.BrojTerasa;
+                    kuca.BrojKupatila = izmenjenaKuca.BrojKupatila;
+                    kuca.BrojSpavacihSoba = izmenjenaKuca.BrojSpavacihSoba;
+                    kuca.PosedujeTV = izmenjenaKuca.PosedujeTV;
+                    kuca.PosedujeInternet = izmenjenaKuca.PosedujeInternet;
+                    kuca.PosedujeKuhinju = izmenjenaKuca.PosedujeKuhinju;
+                    kuca.Spratnos = izmenjenaKuca.Spratnost;
+                    kuca.PosedujeDvoriste = izmenjenaKuca.PosedujeDvoriste;
+                    
                     session.Update(kuca);
                     session.Flush();
                     return true;
@@ -2121,7 +2169,7 @@ public class DataProvider
 
     #region DodatnaOprema
 
-    public static Result<bool, ErrorMessage> DodajDodatnuOpremu(DodatnaOpremaView novaOprema, int idNekretnine)
+    public static Result<bool, ErrorMessage> DodajDodatnuOpremu(DodatnaOpremaView novaOprema, int idNekretnine, int idOpreme)
     {
         ISession? session = null;
         try
@@ -2130,9 +2178,13 @@ public class DataProvider
             if (session != null && session.IsOpen)
             {
                 Nekretnina nekretnina = session.Load<Nekretnina>(idNekretnine);
+                if (nekretnina == null)
+                {
+                    return $"Nije pronadjena nekretnina sa prosledjenim id ({idNekretnine})!".ToError(404);
+                }
                 DodatnaOpremaId doID = new DodatnaOpremaId
                 {
-                    IdOpreme = novaOprema.ID.IdOpreme,
+                    IdOpreme = idOpreme,
                     Nekretnina = nekretnina
                 };
 
@@ -2212,7 +2264,7 @@ public class DataProvider
         }
     }
 
-    public static Result<DodatnaOpremaView?, ErrorMessage> VratiDodatnuOpremu(DodatnaOpremaId id)
+    public static Result<DodatnaOpremaView?, ErrorMessage> VratiDodatnuOpremu(int idNekretnine, int idDodatneOpreme)
     {
         ISession? session = null;
         try
@@ -2220,6 +2272,8 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
+                Nekretnina nekretnina = session.Get<Nekretnina>(idNekretnine);
+                DodatnaOpremaId id = new() { IdOpreme = idDodatneOpreme, Nekretnina = nekretnina };
                 DodatnaOprema? oprema = session.Get<DodatnaOprema>(id);
                 if (oprema != null)
                 {
@@ -2256,7 +2310,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> IzmeniDodatnuOpremu(DodatnaOpremaView izmenjenaOprema, int idNekretnine)
+    public static Result<bool, ErrorMessage> IzmeniDodatnuOpremu(DodatnaOpremaView izmenjenaOprema, int idNekretnine, int idOpreme)
     {
         ISession? session = null;
         try
@@ -2266,7 +2320,7 @@ public class DataProvider
             {
                 DodatnaOpremaId doID = new DodatnaOpremaId
                 {
-                    IdOpreme = izmenjenaOprema.ID.IdOpreme,
+                    IdOpreme = idOpreme,
                     Nekretnina = session.Get<Nekretnina>(idNekretnine)
                 };
 
@@ -2302,7 +2356,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> ObrisiDodatnuOpremu(int idOpreme, int idNekretnine)
+    public static Result<bool, ErrorMessage> ObrisiDodatnuOpremu(int idNekretnine, int idOpreme)
     {
         ISession? session = null;
         try
@@ -2356,7 +2410,7 @@ public class DataProvider
 
     #region Parking
 
-    public async static Task<Result<bool, ErrorMessage>> DodajParkingAsync(ParkingView noviParking, int idNekretnine)
+    public async static Task<Result<bool, ErrorMessage>> DodajParkingAsync(ParkingView noviParking, int idNekretnine, int idParkinga)
     {
         ISession? session = null;
         try
@@ -2367,7 +2421,7 @@ public class DataProvider
                 Nekretnina nekretnina = session.Load<Nekretnina>(idNekretnine);
                 ParkingId pID = new()
                 {
-                    IdParkinga = noviParking.ID.IdParkinga,
+                    IdParkinga = idParkinga,
                     Nekretnina = nekretnina
                 };
                 Parking parking = new Parking
@@ -2477,7 +2531,7 @@ public class DataProvider
         }
     }
 
-    public async static Task<Result<bool, ErrorMessage>> IzmeniParkingAsync(ParkingView izmenjeniParking, int idNekretnine)
+    public async static Task<Result<bool, ErrorMessage>> IzmeniParkingAsync(ParkingView izmenjeniParking, int idNekretnine, int idParkinga)
     {
         ISession? session = null;
         try
@@ -2488,7 +2542,7 @@ public class DataProvider
                 Nekretnina nekretnina = session.Load<Nekretnina>(idNekretnine);
                 ParkingId pID = new()
                 {
-                    IdParkinga = izmenjeniParking.ID.IdParkinga,
+                    IdParkinga = idParkinga,
                     Nekretnina = nekretnina
                 };
                 Parking parking = await session.GetAsync<Parking>(pID);

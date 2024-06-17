@@ -195,6 +195,7 @@ DELETE {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/ObrisiFizickoLice/1234
 DELETE {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/ObrisiPoslovnicu/45
 ### Testiranje brisanja poslovnice sa id 45, na adresi slavonska 88
 
+
 ###-----------------------------------ZAPOSLENI---------------------------------------------
   
 GET {{StanNaDanWebAPIService_HostAddress}}/Zaposleni/VratiSveZaposlene
@@ -256,8 +257,56 @@ Content-Type:application/json
   "datumZaposlenja": "2024-06-16T01:15:14.547Z",
   "strucnaSprema": "Master ekonomista"
 }
-###Testira izmenu agenta na osnovu maticnog broja
+### Testira izmenu agenta na osnovu maticnog broja
 ### (Napomena) brisanje agenta, kao i brisanje sefa, vrsi se kroz prethodno demonstriranu funkciju ObrisiZaposlenog
+
+
+###-----------------------------------SPOLJNI SARADNICI---------------------------------------------
+
+GET {{StanNaDanWebAPIService_HostAddress}}/SpoljniSaradnik/VratiSveSpoljneSaradnike
+Accept:application/json
+### Testira vracanje svih spoljnih saradnika iz baze podataka
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/SpoljniSaradnik/VratiSveSpoljneSaradnikeAgenta/4444444444444
+Accept:application/json
+### Testira vracanje svih spoljnih saradnika agenta sa prosledjenim maticnim brojem
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/SpoljniSaradnik/VratiSpoljnogSaradnika/4444444444444/1
+Accept:application/json
+### Testira vracanje spoljnog saradnika na osnovu njegovog id u okviru agenta sa prosledjenim maticnim brojem
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/SpoljniSaradnik/DodajSpoljnogSaradnika/4444444444444/2
+Content-Type:application/json
+
+{
+  "ime": "Vukoje",
+  "prezime": "Vukojevic",
+  "datumAngazovanja": "2024-06-17T11:46:43.314Z",
+  "telefon": "063 492989",
+  "procenatOdNajma": 10
+}
+### Testira dodavanje novog spoljnog saradnika agentu sa prosledjenim maticnim brojem
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/SpoljniSaradnik/IzmeniSpoljnogSaradnika/4444444444444/2
+Content-Type:application/json
+
+{
+  "ime": "Vukoje",
+  "prezime": "Vukojevichius",
+  "datumAngazovanja": "2024-06-17T11:46:43.314Z",
+  "telefon": "063 492989",
+  "procenatOdNajma": 15
+}
+### Testira menjanje spoljnog saradnika (prethodno dodatog)
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/SpoljniSaradnik/ObrisiSpoljnogSaradnika/4444444444444/2
+### Testira brisanje prethodno kreiranog spoljnog saradnika
+
 
 
 ###-----------------------------------SEFOVI---------------------------------------------
@@ -306,93 +355,6 @@ Content-Type:application/json
 ###-----------------------------------NEKRETNINE---------------------------------------------
 
   
-  
-###---------------------------------DODATNA_OPREMA-------------------------------------------
-
-
-
-POST {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/DodajDodatnuOpremu/1
-Content-Type:application/json
-
-{
-  "mbr": "1107002732577",
-  "ime": "Milorad",
-  "prezime": "Dodati",
-  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
-  "strucnaSprema": "Diplomirani ekonomista"
-}
-### Testira dodavanje novog agenta i njegovo zaposljavanje u poslovnicu sa ID 41
-
-
-GET {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/VratiSvuDodatnuOpremuNekretnine/1
-Accept:application/json
-### Testira vracanje svih sefova iz baze podataka
-
-
-GET {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/VratiDodatnuOpremu/1
-Accept:application/json
-### Testira vracanje sefa na osnovu maticnog broja
-
-
-
-PUT {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/IzmeniDodatnuOpremu/1107002732523
-Content-Type:application/json
-
-{
-  "ime": "Milorad",
-  "prezime": "IzmenjeniSef",
-  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
-  "datumPostavljanja": "2024-06-16T01:15:14.547Z"
-}
-
-
-DELETE {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/ObrisiDodatnuOpremu/1107002732599
-### Testira brisanje zaposlenog sa zadatim ID (taj koji se brise zove se Obrisi Obrisi)
-
-
-
-###---------------------------------PARKING-----------------------------------------------------------
-
-
-
-POST {{StanNaDanWebAPIService_HostAddress}}/Parking/DodajParking/1
-Content-Type:application/json
-
-{
-  "besplatan": false,
-  "cena": 1700,
-  "uSastavuNekretnine": true,
-  "uSastavuJavnogParkinga": false
-}
-### Testira dodavanje novog agenta i njegovo zaposljavanje u poslovnicu sa ID 41
-
-
-GET {{StanNaDanWebAPIService_HostAddress}}/Parking/VratiSveParkingeNekretnine/1
-Accept:application/json
-### Testira vracanje svih parking mesta iz baze podataka
-
-
-GET {{StanNaDanWebAPIService_HostAddress}}/Parking/VratiParking/1/1
-Accept:application/json
-### Testira vracanje sefa na osnovu maticnog broja
-
-
-
-PUT {{StanNaDanWebAPIService_HostAddress}}/Parking/IzmeniParking/1
-Content-Type:application/json
-
-{
-  "ime": "Milorad",
-  "prezime": "IzmenjeniSef",
-  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
-  "datumPostavljanja": "2024-06-16T01:15:14.547Z"
-}
-
-
-DELETE {{StanNaDanWebAPIService_HostAddress}}/Parking/ObrisiParking/1/1
-### Testira brisanje zaposlenog sa zadatim ID (taj koji se brise zove se Obrisi Obrisi)
-
-
 GET {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/VratiSveNekretnine
 Accept:application/json
 ### Testira vracanje svih nekretnina iz baze
@@ -413,4 +375,161 @@ Accept:application/json
 ### Testira vracanje svih nekretnina u posedu vlasnika sa prosledjenim ID
 
 
+POST {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/DodajKucu/1/1
+Content-Type:application/json
+
+{
+  "ulica": "PIROT, Probna ulica",
+  "broj": "66",
+  "kvadratura": 200,
+  "brojTerasa": 4,
+  "brojKupatila": 2,
+  "brojSpavacihSoba": 4,
+  "posedujeTV": true,
+  "posedujeInternet": true,
+  "posedujeKuhinju": true,
+  "spratnost": 2,
+  "posedujeDvoriste": true
+}
+### Testira dodavanje nove kuce vlasniku sa prosledjenim ID, na kvartu sa prosledjenim ID (prvo ide idKvarta)
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/DodajStan/1/1
+Content-Type:application/json
+
+{
+  "ulica": "Probna Ulica",
+  "broj": "77",
+  "kvadratura": 50,
+  "brojTerasa": 1,
+  "brojKupatila": 1,
+  "brojSpavacihSoba": 1,
+  "posedujeTV": true,
+  "posedujeInternet": true,
+  "posedujeKuhinju": true,
+  "sprat": 2,
+  "posedujeLift": true
+}
+### Testira dodavanje novog stana postojecem vlasniku na postojecem kvartu
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/IzmeniKucu/41
+Content-Type:application/json
+
+{
+  "ulica": "PIROT, Probna ulica izmenjena",
+  "broj": "66",
+  "kvadratura": 200,
+  "brojTerasa": 4,
+  "brojKupatila": 2,
+  "brojSpavacihSoba": 4,
+  "posedujeTV": true,
+  "posedujeInternet": true,
+  "posedujeKuhinju": true,
+  "spratnost": 2,
+  "posedujeDvoriste": true
+}
+### Testira menjanje podataka o kuci sa prosledjenim ID
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/IzmeniStan/42
+Content-Type:application/json
+
+{
+  "ulica": "Probna Ulica Izmenjena",
+  "broj": "77",
+  "kvadratura": 50,
+  "brojTerasa": 1,
+  "brojKupatila": 1,
+  "brojSpavacihSoba": 1,
+  "posedujeTV": true,
+  "posedujeInternet": true,
+  "posedujeKuhinju": true,
+  "sprat": 2,
+  "posedujeLift": true
+}
+### Testira promenu podataaka o stanu sa prosledjenim ID
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/ObrisiNekretninu/42
+### Testira brisanje nekretnine sa prosledjenim ID
+
+
+###---------------------------------DODATNA_OPREMA-------------------------------------------
+
+GET {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/VratiSvuDodatnuOpremuNekretnine/1
+Accept:application/json
+### Testira vracanje svih dodatnih oprema nekretnine sa prosledjenim ID
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/VratiDodatnuOpremu/1/1
+Accept:application/json
+### Testira vracanje dodatne opreme sa prosledjenim ID nekretnine i ID opreme iz te nekretnine
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/DodajDodatnuOpremu/1/4
+Content-Type:application/json
+
+{
+  "tipOpreme": "TestOprema",
+  "besplatnoKoriscenje": true,
+  "cenaKoriscenja": 0
+
+}
+### Testira dodavanje nove dodatne opreme nekretnini sa prosledjenim ID
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/IzmeniDodatnuOpremu/1/4
+Content-Type:application/json
+
+{
+  "tipOpreme": "Izmenjeni test",
+  "besplatnoKoriscenje": true,
+  "cenaKoriscenja": 0
+}
+### Testira izmenu dodatne opreme sa prosledjenim ID nekretnine i ID opreme iz te nekretnine
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/ObrisiDodatnuOpremu/1/4
+### Testira brisanje dodatne opreme (prethodno dodate kroz testove) iz nekretnine sa prosledjenim ID i prosledjenim ID opreme iz te nekretnine
+
+
+
+###---------------------------------PARKING-----------------------------------------------------------
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Parking/VratiSveParkingeNekretnine/1
+Accept:application/json
+### Testira vracanje svih parking mesta iz baze podataka
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Parking/VratiParking/1/1
+Accept:application/json
+### Testira parkinga sa prosledjenim id na nivou nekretnine sa prosledjenim id
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Parking/DodajParking/1/2
+Content-Type:application/json
+
+{
+  "besplatan": false,
+  "cena": 1700,
+  "uSastavuNekretnine": true,
+  "uSastavuJavnogParkinga": false
+}
+### Testira dodavanje novog parkinga nekretnini sa prosledjenim id sa prosledjenim IDem parkinga
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Parking/IzmeniParking/1/2
+Content-Type:application/json
+
+{
+  "besplatan": false,
+  "cena": 2000,
+  "uSastavuNekretnine": true,
+  "uSastavuJavnogParkinga": false
+}
+### Testira izmenu parkinga sa zadatim id iz nekretnine sa prosledjenim id
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Parking/ObrisiParking/1/2
+### Testira brisanje prosledjenog parkinga
 

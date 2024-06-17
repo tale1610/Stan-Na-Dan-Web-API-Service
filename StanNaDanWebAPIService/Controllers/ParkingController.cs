@@ -9,13 +9,13 @@ namespace StanNaDanWebAPIService.Controllers
     {
 
         [HttpPost]
-        [Route("DodajParking/{idNekretnine}")]
+        [Route("DodajParking/{idNekretnine}/{idParkinga}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DodajParking(int idNekretnine, [FromBody] ParkingView p)
+        public async Task<IActionResult> DodajParking(int idNekretnine, int idParkinga, [FromBody] ParkingView p)
         {
-            var data = await DataProvider.DodajParkingAsync(p, idNekretnine);
+            var data = await DataProvider.DodajParkingAsync(p, idNekretnine, idParkinga);
 
             if (data.IsError)
             {
@@ -43,13 +43,13 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpGet]
-        [Route("VratiParking/{idParkinga}/{idNekretnina}")]
+        [Route("VratiParking/{idNekretnine}/{idParkinga}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult>VratiParking(int idParkinga, int idNekretnina)
+        public async Task<IActionResult>VratiParking(int idParkinga, int idNekretnine)
         {
-            (bool isError, var parking, ErrorMessage? error) = await DataProvider.VratiParkingAsync(idParkinga, idNekretnina);
+            (bool isError, var parking, ErrorMessage? error) = await DataProvider.VratiParkingAsync(idParkinga, idNekretnine);
 
             if (isError)
             {
@@ -60,20 +60,20 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpPut]
-        [Route("IzmeniParking/{idNekretnine}")]
+        [Route("IzmeniParking/{idNekretnine}/{idParkinga}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> IzmeniParking(int idNekretnine, ParkingView o)
+        public async Task<IActionResult> IzmeniParking(int idNekretnine, int idParkinga, ParkingView o)
         {
-            (bool isError, var parking, ErrorMessage? error) = await DataProvider.IzmeniParkingAsync(o, idNekretnine);
+            (bool isError, var parking, ErrorMessage? error) = await DataProvider.IzmeniParkingAsync(o, idNekretnine, idParkinga);
 
             if (isError)
             {
                 return StatusCode(error?.StatusCode ?? 400, error?.Message);
             }
 
-            if (parking == null)
+            if (parking == false)
             {
                 return BadRequest("Parking nije validan.");
             }
@@ -82,7 +82,7 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpDelete]
-        [Route("ObrisiParking/{idParkinga}/{idNretnine}")]
+        [Route("ObrisiParking/{idNretnine}/{idParkinga}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

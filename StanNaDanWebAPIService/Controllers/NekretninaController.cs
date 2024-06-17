@@ -7,22 +7,39 @@ namespace StanNaDanWebAPIService.Controllers
     [Route("[controller]")]
     public class NekretninaController : ControllerBase
     {
-        //[HttpPost]
-        //[Route("DodajNekretninu/{idKvarta}/{idVlasnika}")]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        //public IActionResult DodajNekretninu(int idKvarta, int idVlasnika, [FromBody] KucaView k, StanView s)
-        //{
-        //    var data = DataProvider.DodajNekretninu(idKvarta, idVlasnika, k, s);
+        [HttpPost]
+        [Route("DodajKucu/{idKvarta}/{idVlasnika}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult DodajStan(int idKvarta, int idVlasnika, [FromBody] KucaView k)
+        {
+            var data = DataProvider.DodajNekretninu(idKvarta, idVlasnika, k, null);
 
-        //    if (data.IsError)
-        //    {
-        //        return StatusCode(data.Error.StatusCode, data.Error.Message);
-        //    }
+            if (data.IsError)
+            {
+                return StatusCode(data.Error.StatusCode, data.Error.Message);
+            }
 
-        //    return StatusCode(201, $"Uspešno dodata nekretnina.");
-        //}
+            return StatusCode(201, $"Uspešno dodata nekretnina.");
+        }
+
+        [HttpPost]
+        [Route("DodajStan/{idKvarta}/{idVlasnika}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult DodajStan(int idKvarta, int idVlasnika, [FromBody] StanView s)
+        {
+            var data = DataProvider.DodajNekretninu(idKvarta, idVlasnika, null, s);
+
+            if (data.IsError)
+            {
+                return StatusCode(data.Error.StatusCode, data.Error.Message);
+            }
+
+            return StatusCode(201, $"Uspešno dodata nekretnina.");
+        }
 
         [HttpGet]
         [Route("VratiSveNekretnine")]
@@ -41,36 +58,15 @@ namespace StanNaDanWebAPIService.Controllers
             return Ok(pravnici);
         }
 
-        //[HttpPut]
-        //[Route("IzmeniNektretninu/{idNekretnine}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        //public IActionResult IzmeniNektretninu(int idNekretnine, [FromBody] KucaView k, StanView s)
-        //{
-        //    (bool isError, var nekretnina, ErrorMessage? error) = DataProvider.IzmeniNekretninu(idNekretnine, k, s);
-
-        //    if (isError)
-        //    {
-        //        return StatusCode(error?.StatusCode ?? 400, error?.Message);
-        //    }
-
-        //    if (nekretnina == null)
-        //    {
-        //        return BadRequest("Nekretnina nije validna.");
-        //    }
-
-        //    return Ok($"Uspešno ažurirana nekretnina.");
-        //}
 
         [HttpPut]
-        [Route("IzmeniStan/{idVlasnika}")]
+        [Route("IzmeniStan/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult IzmeniSefa(int idVlasnika, [FromBody] StanView p)
+        public IActionResult IzmeniSefa([FromBody] StanView p, int idNekretnine)
         {
-            (bool isError, var stan, ErrorMessage? error) = DataProvider.IzmeniStan(p, idVlasnika);
+            (bool isError, var stan, ErrorMessage? error) = DataProvider.IzmeniStan(p, idNekretnine);
 
             if (isError)
             {
@@ -86,13 +82,13 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpPut]
-        [Route("IzmeniKucu/{idVlasnika}")]
+        [Route("IzmeniKucu/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public IActionResult IzmeniKucu(int idVlasnika, [FromBody] KucaView p)
+        public IActionResult IzmeniKucu(int idNekretnine, [FromBody] KucaView p)
         {
-            (bool isError, var kuca, ErrorMessage? error) = DataProvider.IzmeniKucu(p, idVlasnika);
+            (bool isError, var kuca, ErrorMessage? error) = DataProvider.IzmeniKucu(p, idNekretnine);
 
             if (isError)
             {
