@@ -644,7 +644,7 @@ public class SajtoviNekretnineIdView
 public class SajtoviNekretnineView
 {
     public SajtoviNekretnineIdView? ID { get; set; }
-    public string? AdresaNekretnine { get; set; }
+    //public string? AdresaNekretnine { get; set; }
 
     public SajtoviNekretnineView() { }
 
@@ -653,7 +653,7 @@ public class SajtoviNekretnineView
         if (sajtoviNekretnine != null)
         {
             ID = new SajtoviNekretnineIdView(sajtoviNekretnine.ID);
-            AdresaNekretnine = sajtoviNekretnine.ID.Nekretnina.Ulica + " " + sajtoviNekretnine.ID.Nekretnina.Broj;
+            //AdresaNekretnine = sajtoviNekretnine.ID.Nekretnina.Ulica + " " + sajtoviNekretnine.ID.Nekretnina.Broj;
         }
 
     }

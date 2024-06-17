@@ -8,13 +8,13 @@ namespace StanNaDanWebAPIService.Controllers
     public class SobaController : ControllerBase
     {
         [HttpPost]
-        [Route("DodajSobu/{idNekretnine}")]
+        [Route("DodajSobu/{idSobe}/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DodajSobu(int idNekretnine, [FromBody] SobaView p)
+        public async Task<IActionResult> DodajSobu(int idNekretnine, int idSobe)
         {
-            var data = await DataProvider.DodajSobuAsync(p, idNekretnine);
+            var data = await DataProvider.DodajSobuAsync(idSobe, idNekretnine);
 
             if (data.IsError)
             {

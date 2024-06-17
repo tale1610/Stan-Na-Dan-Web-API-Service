@@ -7,29 +7,13 @@ namespace StanNaDanWebAPIService.Controllers
     [Route("[controller]")]
     public class NajamController : ControllerBase
     {
+    
         [HttpPost]
-        [Route("KreirajNajam/{mbrAgenta}/{idNekretnine}")]
+        [Route("DodajNajam/{mbrAgenta}/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> KreirajNajam(string mbrAgenta, int idNekretnine, [FromBody] NajamView p)
-        {
-            var data = await DataProvider.KreirajNajamAsync(p, idNekretnine, mbrAgenta);
-
-            if (data.IsError)
-            {
-                return StatusCode(data.Error.StatusCode, data.Error.Message);
-            }
-
-            return StatusCode(201, $"Uspešno kreiran najam.");
-        }
-
-        [HttpPost]
-        [Route("DodajNajam/{mbrAgenta}/{idNekretnine}/{idSpoljnogSaradnika}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DodajNajam(string mbrAgenta, int idNekretnine, [FromBody] NajamView p, int? idSpoljnogSaradnika = null)
+        public async Task<IActionResult> DodajNajam(string mbrAgenta, int idNekretnine, [FromBody] NajamView p,[FromQuery] int? idSpoljnogSaradnika = null)
         {
             var data = await DataProvider.DodajNajamAsync(p, idNekretnine, mbrAgenta, idSpoljnogSaradnika);
 
@@ -42,7 +26,7 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpGet]
-        [Route("VratiSveNajmove")]
+        [Route("VratiSveNajmove/{idSobe}/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

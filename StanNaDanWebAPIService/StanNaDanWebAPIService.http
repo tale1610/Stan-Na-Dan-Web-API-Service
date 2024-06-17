@@ -1,4 +1,4 @@
-@StanNaDanWebAPIService_HostAddress = http://localhost:5268
+﻿@StanNaDanWebAPIService_HostAddress = http://localhost:5268
 
 GET {{StanNaDanWebAPIService_HostAddress}}/weatherforecast/
 Accept: application/json
@@ -533,3 +533,213 @@ Content-Type:application/json
 DELETE {{StanNaDanWebAPIService_HostAddress}}/Parking/ObrisiParking/1/2
 ### Testira brisanje prosledjenog parkinga
 
+
+###--------------------------SAJTOVI_NEKRETNINE--------------------------------------------------------------
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/DodajSajtNekretnine/1/www.stanNaDan.com
+### Testira dodavanje novog sajta nekretnini sa prosledjenim id
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/VratiSveSajtoveNekretnine/1
+Accept:application/json
+### Testira vracanje svih sajtova iz baze podataka za nekretninu sa prosledjenim id
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/VratiSajtNekretnine/www.stanNaDan.com/1
+Accept:application/json
+### Testira vracanje konkretnog sajta nekretnine sa prosledjenim id
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/IzmeniSajtNekretnine/www.stanNaDan.com/www.novi.com/1
+### Testiranje azuriranja sajta
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/ObrisiSajtNekretnine/www.stanNaDan.com/1
+### Testira brisanje sajta
+
+
+###------------------------------------BROJEVI_TELEFONA--------------------------------------------------------
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/BrojeviTelefona/DodajBrojTelefona/1234567890123/+381%2069%205594999
+### Testira dodavanje novog sajta nekretnini sa prosledjenim id
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/BrojeviTelefona/VratiSveBrojeveTelefona/1234567890123
+Accept:application/json
+### Testira vracanje svih brojeva telefona iz baze podataka za fizicko lice sa prosledjenim jmbg
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/BrojeviTelefona/VratiBrojTelefona/+381%2069%205594999/1234567890123
+Accept:application/json
+### Testira vracanje konkretnog telefona sa podacima fizickog lica sa prosledjenim jmbg
+
+  
+PUT {{StanNaDanWebAPIService_HostAddress}}/BrojeviTelefona/IzmeniBrojTelefona/+381%2069%205594999/+381%2069%204444999/1234567890123
+### Testira izmenu starog telefona novim
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/BrojeviTelefona/ObrisiBrojTelefona/+381%2069%204444999/1234567890123
+### Testira brisanje broja telefona
+
+
+###--------------------------------TELEFONI_KONTAKT_OSOBE--------------------------------------------------------------
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/TelefoniKontaktOsobe/DodajTelefonKontaktOsobe/+381%2064%205594977/123456789
+### Testira dodavanje novog sajta nekretnini sa prosledjenim id
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/TelefoniKontaktOsobe/VratiSveTelefoneKontaktOsobe/123456789
+Accept:application/json
+### Testira vracanje svih brojeva telefona iz baze podataka za pravno lice sa prosledjenim pib
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/TelefoniKontaktOsobe/VratiTelefonKontaktOsobe/+381%2064%205594977/123456789
+Accept:application/json
+### Testira vracanje konkretnog telefona sa podacima pravnog lica sa prosledjenim pib
+
+  
+PUT {{StanNaDanWebAPIService_HostAddress}}/TelefoniKontaktOsobe/IzmeniTelefonKontaktOsobe/+381%2064%205594977/+381%2064%205594399/123456789
+### Testira izmenu pravnog lica sa zadatim brojevima i pib
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/TelefoniKontaktOsobe/ObrisiTelefonKontaktOsobe/+381%2064%205594399/123456789
+### Testira brisanje broja telefona
+
+
+###------------------------------------------------SOBA---------------------------------------------------------------------------------------
+
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Soba/DodajSobu/4/3
+### Testira dodavanje nove sobe nekretnini sa prosledjenim id
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Soba/VratiSveSobe
+Accept:application/json
+### Testira vracanje svih soba iz baze podataka za nekretninom sa prosledjenim id
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Soba/VratiSveSobeNekretnine/3
+Accept:application/json
+### Testira vracanje soba konkretne nekretnine
+
+  
+GET {{StanNaDanWebAPIService_HostAddress}}/Soba/VratiSobu/4/3
+### Testira vracanje konkretne sobe konkretne nekretnine
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Soba/ObrisiSobu/4/3
+### Testira brisanje sobe
+
+
+###-------------------------------------ZAJEDNICKE_PROSTORIJE-------------------------------------------
+
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/ZajednickeProstorije/DodajZajednickuProstoriju/1/3/Kuhinja
+### Testira dodavanje nove zajednicke prostorije
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/ZajednickeProstorije/VratiSveZajednickeProstorijeSobe/1/3
+Accept:application/json
+### Testira vracanje svih zajednickih prostorija sobe
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/ZajednickeProstorije/VratiSveZajednickeProstorijeNajma/1
+Accept:application/json
+### Testira vracanje zajednickih prostorija najma
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/ZajednickeProstorije/VratiZajednickuProstoriju/1/3/Kuhinja
+Accept:application/json
+### Testira vracanje konkretne zajednicke prostorije
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/ZajednickeProstorije/IzmeniZajednickuProstoriju/Kuhinja/Hodnik/1/3
+### Testira izmenu zajednicke prostorije
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/ZajednickeProstorije/ObrisiZajednickuProstoriju/1/3/Hodnik
+### Testira brisanje zajednicke prostorije
+
+
+
+###--------------------------------------NAJAM----------------------------------------------------------------------------
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Najam/DodajNajam/1205003587452/3
+Content-Type:application/json
+
+{
+  "datumPocetka": "2024-05-30T05:03:38",
+  "datumZavrsetka": "2024-05-30T05:03:38",
+  "brojDana": 0,
+  "cenaPoDanu": 1111,
+  "popust": 11,
+  "cenaSaPopustom": 987.555555555556,
+  "zaradaOdDodatnihUsluga": 1000,
+  "ukupnaCena": 1000,
+  "provizijaAgencije": 11,
+  "adresaNekretnine": "NIS, Ulica Svetozara Markovića 7"
+}
+### Testira dodavanje novog najma bez spoljnog saradnika
+
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Najam/DodajNajam/4444444444444/3?idSpoljnogSaradnika=1
+Content-Type:application/json
+
+{
+  "datumPocetka": "2024-05-30T05:03:38",
+  "datumZavrsetka": "2024-05-30T05:03:38",
+  "brojDana": 0,
+  "cenaPoDanu": 1111,
+  "popust": 11,
+  "cenaSaPopustom": 987.555555555556,
+  "zaradaOdDodatnihUsluga": 1000,
+  "ukupnaCena": 1000,
+  "provizijaAgencije": 11,
+  "adresaNekretnine": "NIS, Ulica Svetozara Markovića 7"
+}
+### Testira dodavanje novog najma sa spoljnim saradnikom
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Najam/VratiSveNajmove/1/3
+Accept:application/json
+### Testira vracanje svih brojeva telefona iz baze podataka za pravno lice sa prosledjenim pib
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Najam/VratiSveNajmoveNekretnine/3
+Accept:application/json
+### Testira vracanje konkretnog telefona sa podacima pravnog lica sa prosledjenim pib
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Najam/VratiNajam/84
+Accept:application/json
+### Testira vracanje konkretnog telefona sa podacima pravnog lica sa prosledjenim pib
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Najam/IzmeniNajam/84
+Content-Type:application/json
+
+{
+  "datumPocetka": "2024-03-30T05:07:38",
+  "datumZavrsetka": "2024-05-30T05:03:38",
+  "cenaPoDanu": 1000,
+  "popust": 11,
+  "cenaSaPopustom": 987.555555555556,
+  "zaradaOdDodatnihUsluga": 1000,
+  "ukupnaCena": 1000,
+  "provizijaAgencije": 11
+}
+### Testira izmenu datuma pocetka i cene po danu
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Najam/ObrisiNajam/83
+### Testira brisanje najma
+
+
+
+###-----------------------------------IZNAJMLJENA_SOBA---------------------------------------------------------

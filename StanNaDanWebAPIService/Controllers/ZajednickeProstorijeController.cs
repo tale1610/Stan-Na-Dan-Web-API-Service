@@ -8,13 +8,13 @@ namespace StanNaDanWebAPIService.Controllers
     public class ZajednickeProstorijeController : ControllerBase
     {
         [HttpPost]
-        [Route("DodajZajednickuProstoriju/{idSobe}/{idNekretnine}")]
+        [Route("DodajZajednickuProstoriju/{idSobe}/{idNekretnine}/{zajednickaProstorija}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DodajZajednickuProstoriju(int idSobe,int idNekretnine, [FromBody] ZajednickeProstorijeView p)
+        public async Task<IActionResult> DodajZajednickuProstoriju(int idSobe,int idNekretnine, string zajednickaProstorija)
         {
-            var data = await DataProvider.DodajZajednickuProstorijuAsync(p, idSobe, idNekretnine);
+            var data = await DataProvider.DodajZajednickuProstorijuAsync(idSobe, idNekretnine, zajednickaProstorija);
 
             if (data.IsError)
             {
@@ -25,7 +25,7 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpGet]
-        [Route("VratiSveZajednickeProstorijeSobe")]
+        [Route("VratiSveZajednickeProstorijeSobe/{idSobe}/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -76,13 +76,13 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpPut]
-        [Route("IzmeniZajednickuProstoriju/{idSobe}/{idNekretnine}")]
+        [Route("IzmeniZajednickuProstoriju/{staraProstorija}/{novaProstorija}/{idSobe}/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> IzmeniZajednickuProstoriju(int idSobe, int idNekretnine, ZajednickeProstorijeView o)
+        public async Task<IActionResult> IzmeniZajednickuProstoriju(string staraProstorija, string novaProstorija, int idSobe, int idNekretnine)
         {
-            (bool isError, var prostorija, ErrorMessage? error) = await DataProvider.IzmeniZajednickuProstorijuAsync(o, idSobe, idNekretnine);
+            (bool isError, var prostorija, ErrorMessage? error) = await DataProvider.IzmeniZajednickuProstorijuAsync(staraProstorija,novaProstorija, idSobe, idNekretnine);
 
             if (isError)
             {

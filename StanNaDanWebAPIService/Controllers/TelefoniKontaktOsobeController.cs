@@ -8,13 +8,13 @@ namespace StanNaDanWebAPIService.Controllers
     public class TelefoniKontaktOsobeController : ControllerBase
     {
         [HttpPost]
-        [Route("DodajTelefonKontaktOsobe/{pib}")]
+        [Route("DodajTelefonKontaktOsobe/{noviTelefon}/{pib}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DodajTelefonKontaktOsobe(string pib, [FromBody] TelefoniKontaktOsobeView p)
+        public async Task<IActionResult> DodajTelefonKontaktOsobe(string pib, string noviTelefon)
         {
-            var data = await DataProvider.DodajTelefonKontaktOsobeAsync(p, pib);
+            var data = await DataProvider.DodajTelefonKontaktOsobeAsync(noviTelefon, pib);
 
             if (data.IsError)
             {
@@ -59,13 +59,13 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpPut]
-        [Route("IzmeniTelefonKontaktOsobe/{pib}")]
+        [Route("IzmeniTelefonKontaktOsobe/{stariTelefon}/{noviTelefon}/{pib}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> IzmeniTelefonKontaktOsobe(string pib, TelefoniKontaktOsobeView o)
+        public async Task<IActionResult> IzmeniTelefonKontaktOsobe(string pib, string stariTelefon, string noviTelefon)
         {
-            (bool isError, var telefon, ErrorMessage? error) = await DataProvider.IzmeniTelefonKontaktOsobeAsync(o, pib);
+            (bool isError, var telefon, ErrorMessage? error) = await DataProvider.IzmeniTelefonKontaktOsobeAsync(stariTelefon, noviTelefon, pib);
 
             if (isError)
             {

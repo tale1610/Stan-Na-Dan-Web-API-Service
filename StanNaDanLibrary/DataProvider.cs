@@ -2624,7 +2624,7 @@ public class DataProvider
 
     #region SajtoviNekretnine
 
-    public async static Task<Result<bool, ErrorMessage>> DodajSajtNekretnineAsync(SajtoviNekretnineView noviSajt, int idNekretnine)
+    public async static Task<Result<bool, ErrorMessage>> DodajSajtNekretnineAsync(int idNekretnine, string imeStajta)
     {
         ISession? session = null;
         try
@@ -2635,7 +2635,7 @@ public class DataProvider
                 Nekretnina nekretnina = session.Load<Nekretnina>(idNekretnine);
                 SajtoviNekretnineId sajtID = new()
                 {
-                    Sajt = noviSajt.ID.Sajt,
+                    Sajt = imeStajta,
                     Nekretnina = nekretnina
                 };
                 SajtoviNekretnine sajtIzdavanja = new()
@@ -2741,7 +2741,7 @@ public class DataProvider
         }
     }
 
-    public async static Task<Result<bool, ErrorMessage>> IzmeniSajtNekretnineAsync(SajtoviNekretnineView izmenjeniSajt, string stariSajt, int idNekretnine)
+    public async static Task<Result<bool, ErrorMessage>> IzmeniSajtNekretnineAsync(string stariSajt, int idNekretnine, string noviSajt)
     {
         ISession? session = null;
         try
@@ -2758,7 +2758,7 @@ public class DataProvider
                 SajtoviNekretnine sajtNekretnine = await session.GetAsync<SajtoviNekretnine>(sID);
                 SajtoviNekretnineId noviID = new()
                 {
-                    Sajt = izmenjeniSajt.ID.Sajt,
+                    Sajt = noviSajt,
                     Nekretnina = nekretnina
                 };
                 if (sajtNekretnine != null)
@@ -2841,7 +2841,7 @@ public class DataProvider
 
     #region BrojeviTelefona
 
-    public async static Task<Result<bool, ErrorMessage>> DodajBrojTelefonaAsync(BrojeviTelefonaView noviBroj, string jmbgFizickogLica)
+    public async static Task<Result<bool, ErrorMessage>> DodajBrojTelefonaAsync(string noviBroj, string jmbgFizickogLica)
     {
         ISession? session = null;
         try
@@ -2849,10 +2849,13 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
+                // Dekodiraj URL-kodirani broj telefona
+                string dekodiranBroj = Uri.UnescapeDataString(noviBroj);
+
                 FizickoLice fizickoLice = session.Load<FizickoLice>(jmbgFizickogLica);
                 BrojeviTelefona brojTelefona = new BrojeviTelefona
                 {
-                    BrojTelefona = noviBroj.BrojTelefona,
+                    BrojTelefona = dekodiranBroj,
                     FizickoLice = fizickoLice
                 };
 
@@ -2949,7 +2952,7 @@ public class DataProvider
         }
     }
 
-    public async static Task<Result<bool, ErrorMessage>> IzmeniBrojTelefonaAsync(BrojeviTelefonaView izmenjeniBroj, string jmbgFizickogLica)
+    public async static Task<Result<bool, ErrorMessage>> IzmeniBrojTelefonaAsync(string stariBroj, string noviBroj, string jmbgFizickogLica)
     {
         ISession? session = null;
         try
@@ -2957,21 +2960,28 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
+                
                 FizickoLice fizickoLice = session.Load<FizickoLice>(jmbgFizickogLica);
-                BrojeviTelefona brojTelefona = await session.GetAsync<BrojeviTelefona>(izmenjeniBroj.BrojTelefona);
+                BrojeviTelefona brojTelefona = await session.GetAsync<BrojeviTelefona>(stariBroj);
+
+                
 
                 if (brojTelefona != null)
                 {
-                    brojTelefona.BrojTelefona = izmenjeniBroj.BrojTelefona;
-                    brojTelefona.FizickoLice = fizickoLice;
-
-                    await session.UpdateAsync(brojTelefona);
+                    await session.DeleteAsync(brojTelefona);
+                    await session.FlushAsync();
+                    BrojeviTelefona noviBrojTelefona = new BrojeviTelefona
+                    {
+                        BrojTelefona = noviBroj,
+                        FizickoLice = fizickoLice
+                    };
+                    await session.SaveAsync(noviBrojTelefona);
                     await session.FlushAsync();
                     return true;
                 }
                 else
                 {
-                    return $"Broj telefona sa brojem {izmenjeniBroj.BrojTelefona} i JMBG-om {jmbgFizickogLica} nije pronađen.".ToError(404);
+                    return $"Broj telefona sa brojem {stariBroj} i JMBG-om {jmbgFizickogLica} nije pronađen.".ToError(404);
                 }
             }
             else
@@ -3031,7 +3041,7 @@ public class DataProvider
 
     #region TelefoniKontaktOsobe
 
-    public async static Task<Result<bool, ErrorMessage>> DodajTelefonKontaktOsobeAsync(TelefoniKontaktOsobeView noviTelefon, string pibPravnogLica)
+    public async static Task<Result<bool, ErrorMessage>> DodajTelefonKontaktOsobeAsync(string noviTelefon, string pibPravnogLica)
     {
         ISession? session = null;
         try
@@ -3042,7 +3052,7 @@ public class DataProvider
                 PravnoLice pravnoLice = session.Load<PravnoLice>(pibPravnogLica);
                 TelefoniKontaktOsobe telefon = new TelefoniKontaktOsobe
                 {
-                    BrojTelefona = noviTelefon.BrojTelefona,
+                    BrojTelefona = noviTelefon,
                     PravnoLice = pravnoLice
                 };
 
@@ -3138,7 +3148,7 @@ public class DataProvider
         }
     }
 
-    public async static Task<Result<bool, ErrorMessage>> IzmeniTelefonKontaktOsobeAsync(TelefoniKontaktOsobeView izmenjeniTelefon, string pibPravnogLica)
+    public async static Task<Result<bool, ErrorMessage>> IzmeniTelefonKontaktOsobeAsync(string stariBroj, string noviBroj, string pibPravnogLica)
     {
         ISession? session = null;
         try
@@ -3147,19 +3157,26 @@ public class DataProvider
             if (session != null && session.IsOpen)
             {
                 PravnoLice pravnoLice = session.Load<PravnoLice>(pibPravnogLica);
-                TelefoniKontaktOsobe telefon = await session.GetAsync<TelefoniKontaktOsobe>(izmenjeniTelefon.BrojTelefona);
-                if (telefon != null)
+                
+                TelefoniKontaktOsobe stariTelefon = await session.GetAsync<TelefoniKontaktOsobe>(stariBroj);
+                if (stariTelefon != null)
                 {
-                    telefon.BrojTelefona = izmenjeniTelefon.BrojTelefona;
-                    telefon.PravnoLice = pravnoLice;
+                    await session.DeleteAsync(stariTelefon);
+                    await session.FlushAsync();
 
-                    await session.UpdateAsync(telefon);
+                    TelefoniKontaktOsobe telefon = new TelefoniKontaktOsobe
+                    {
+                        BrojTelefona = noviBroj,
+                        PravnoLice = pravnoLice
+                    };
+
+                    await session.SaveAsync(telefon);
                     await session.FlushAsync();
                     return true;
                 }
                 else
                 {
-                    return $"Telefon kontakt osobe sa brojem {izmenjeniTelefon.BrojTelefona} i PIB-om {pibPravnogLica} nije pronađen.".ToError(404);
+                    return $"Telefon kontakt osobe sa brojem {stariBroj} i PIB-om {pibPravnogLica} nije pronađen.".ToError(404);
                 }
             }
             else
@@ -3219,7 +3236,7 @@ public class DataProvider
 
     #region Soba
 
-    public async static Task<Result<bool, ErrorMessage>> DodajSobuAsync(SobaView novaSoba, int idNekretnine)
+    public async static Task<Result<bool, ErrorMessage>> DodajSobuAsync(int novaSoba, int idNekretnine)
     {
         ISession? session = null;
         try
@@ -3230,7 +3247,7 @@ public class DataProvider
                 Nekretnina nekretnina = session.Load<Nekretnina>(idNekretnine);
                 SobaId sID = new()
                 {
-                    IdSobe = novaSoba.ID.IdSobe,
+                    IdSobe = novaSoba,
                     Nekretnina = nekretnina
                 };
                 Soba soba = new()
@@ -3423,7 +3440,7 @@ public class DataProvider
 
     #region ZajednickeProstorije
 
-    public async static Task<Result<bool, ErrorMessage>> DodajZajednickuProstorijuAsync(ZajednickeProstorijeView novaProstorija, int idSobe, int idNekretnine)
+    public async static Task<Result<bool, ErrorMessage>> DodajZajednickuProstorijuAsync(int idSobe, int idNekretnine, string novaProstorija)
     {
         ISession? session = null;
         try
@@ -3435,7 +3452,7 @@ public class DataProvider
                 ZajednickeProstorijeId zpID = new ZajednickeProstorijeId
                 {
                     Soba = soba,
-                    ZajednickaProstorija = novaProstorija.ID.ZajednickaProstorija
+                    ZajednickaProstorija = novaProstorija
                 };
                 ZajednickeProstorije zajednickaProstorija = new ZajednickeProstorije
                 {
@@ -3576,7 +3593,7 @@ public class DataProvider
         }
     }
 
-    public async static Task<Result<bool, ErrorMessage>> IzmeniZajednickuProstorijuAsync(ZajednickeProstorijeView izmenjenaProstorija, int idSobe, int idNekretnine)
+    public async static Task<Result<bool, ErrorMessage>> IzmeniZajednickuProstorijuAsync(string staraProstorija, string novaProstorija, int idSobe, int idNekretnine)
     {
         ISession? session = null;
         try
@@ -3588,14 +3605,26 @@ public class DataProvider
                 ZajednickeProstorijeId zpID = new ZajednickeProstorijeId
                 {
                     Soba = soba,
-                    ZajednickaProstorija = izmenjenaProstorija.ID.ZajednickaProstorija
+                    ZajednickaProstorija = staraProstorija
                 };
                 ZajednickeProstorije prostorija = await session.GetAsync<ZajednickeProstorije>(zpID);
                 if (prostorija != null)
                 {
-                    prostorija.ID = zpID;
 
-                    await session.UpdateAsync(prostorija);
+                    await session.DeleteAsync(prostorija);
+                    await session.FlushAsync();
+
+                    ZajednickeProstorijeId nzpID = new ZajednickeProstorijeId
+                    {
+                        Soba = soba,
+                        ZajednickaProstorija = novaProstorija
+                    };
+                    ZajednickeProstorije zajednickaProstorija = new ZajednickeProstorije
+                    {
+                        ID = nzpID
+                    };
+
+                    await session.SaveAsync(zajednickaProstorija);
                     await session.FlushAsync();
                     return true;
                 }

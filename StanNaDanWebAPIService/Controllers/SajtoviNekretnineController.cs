@@ -8,13 +8,13 @@ namespace StanNaDanWebAPIService.Controllers
     public class SajtoviNekretnineController : ControllerBase
     {
         [HttpPost]
-        [Route("DodajSajtNekretnine/{idNekretnine}")]
+        [Route("DodajSajtNekretnine/{idNekretnine}/{imeSajta}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DodajSajtNekretnine(int idNekretnine, [FromBody] SajtoviNekretnineView p)
+        public async Task<IActionResult> DodajSajtNekretnine(int idNekretnine,  string imeSajta)
         {
-            var data = await DataProvider.DodajSajtNekretnineAsync(p, idNekretnine);
+            var data = await DataProvider.DodajSajtNekretnineAsync(idNekretnine, imeSajta);
 
             if (data.IsError)
             {
@@ -59,13 +59,13 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpPut]
-        [Route("IzmeniSajtNekretnine/{stariSajt}/{idNekretnine}")]
+        [Route("IzmeniSajtNekretnine/{stariSajt}/{noviSajt}/{idNekretnine}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> IzmeniSajtNekretnine(string stariSajt, int idNekretnine, SajtoviNekretnineView o)
+        public async Task<IActionResult> IzmeniSajtNekretnine(string stariSajt, int idNekretnine, string noviSajt)
         {
-            (bool isError, var sajt, ErrorMessage? error) = await DataProvider.IzmeniSajtNekretnineAsync(o, stariSajt, idNekretnine);
+            (bool isError, var sajt, ErrorMessage? error) = await DataProvider.IzmeniSajtNekretnineAsync(stariSajt, idNekretnine, noviSajt);
 
             if (isError)
             {
@@ -77,7 +77,7 @@ namespace StanNaDanWebAPIService.Controllers
                 return BadRequest("Sajt nije validan.");
             }
 
-            return Ok($"Uspešno ažuriran parking.");
+            return Ok($"Uspešno ažuriran sajt.");
         }
 
         [HttpDelete]
