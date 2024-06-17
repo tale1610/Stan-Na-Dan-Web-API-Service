@@ -70,6 +70,11 @@ Accept:application/json
 ### Testira vracanje svih agenta iz baze podataka
 
 
+GET {{StanNaDanWebAPIService_HostAddress}}/Agent/VratiSveAgentePoslovnice/1
+Accept:application/json
+### Testira vracanje svih agenta iz baze podataka
+
+
 GET {{StanNaDanWebAPIService_HostAddress}}/Agent/VratiAgenta/1107002732566
 Accept:application/json
 ### Testira vracanje agenta na osnovu maticnog broja
@@ -113,6 +118,11 @@ Accept:application/json
 ### Testira vracanje sefa na osnovu maticnog broja
 
 
+GET {{StanNaDanWebAPIService_HostAddress}}/Sef/VratiSefaPoslovnice/1
+Accept:application/json
+### Testira vracanje sefa prosledjene poslovnice
+
+
 POST {{StanNaDanWebAPIService_HostAddress}}/Sef/DodajNovogSefa/41
 Content-Type:application/json
 
@@ -139,3 +149,25 @@ Content-Type:application/json
 
   
 ###-----------------------------------NEKRETNINE---------------------------------------------
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/VratiSveNekretnine
+Accept:application/json
+### Testira vracanje svih nekretnina iz baze
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/VratiNekretninu/1
+Accept:application/json
+### Testira vracanje nekretnine na osnovu prosledjenog ID
+
+  
+GET {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/VratiSveNekretnineKvarta/1
+Accept:application/json
+### Testira vracanje svih nekretnina na prosledjenom kvartu
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/VratiSveNekretnineVlasnika/1
+Accept:application/json
+### Testira vracanje svih nekretnina u posedu vlasnika sa prosledjenim ID
+
+
+

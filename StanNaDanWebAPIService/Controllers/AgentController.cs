@@ -26,6 +26,23 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpGet]
+        [Route("VratiSveAgentePoslovnice/{idPoslovnice}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult VratiSveAgentePoslovnice(int idPoslovnice)
+        {
+            (bool isError, var agenti, ErrorMessage? error) = DataProvider.vratiSveAgentePoslovnice(idPoslovnice);
+
+            if (isError)
+            {
+                return StatusCode(error?.StatusCode ?? 400, error?.Message);
+            }
+
+            return Ok(agenti);
+        }
+
+        [HttpGet]
         [Route("VratiAgenta/{mbr}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -376,6 +376,38 @@ public class DataProvider
         }
     }
 
+    public static Result<List<AgentView>, ErrorMessage> vratiSveAgentePoslovnice(int idPoslovnice)
+    {
+        List<AgentView> zaposleniToReturn = new List<AgentView>();
+        ISession? session = null;
+        try
+        {
+            session = DataLayer.GetSession();
+            if (session != null && session.IsOpen)
+            {
+                IEnumerable<StanNaDanLibrary.Entiteti.Agent> sviAgenti = from agent
+                                                                  in session.Query<StanNaDanLibrary.Entiteti.Agent>()
+                                                                         where agent.Poslovnica.ID == idPoslovnice
+                                                                         select agent;
+
+                foreach (StanNaDanLibrary.Entiteti.Agent z in sviAgenti)
+                {
+                    zaposleniToReturn.Add(new AgentView(z));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            return "Nemoguće vratiti sve agente ove prodavnice.".ToError(400);
+        }
+        finally
+        {
+            session?.Close();
+        }
+
+        return zaposleniToReturn;
+    }
+
     public static Result<AgentView, ErrorMessage> VratiAgenta(string mbr)
     {
         ISession? session = null;
@@ -531,6 +563,40 @@ public class DataProvider
             session?.Close();
             session?.Dispose();
         }
+    }
+    public static Result<SefView, ErrorMessage> vratiSefaPoslovnice(int idPoslovnice)
+    {
+        SefView? sefToReturn = null;
+        ISession? session = null;
+        try
+        {
+            session = DataLayer.GetSession();
+            if (session != null && session.IsOpen)
+            {
+                StanNaDanLibrary.Entiteti.Sef? sef = session.Query<StanNaDanLibrary.Entiteti.Sef>()
+                                                            .Where(s => s.Poslovnica.ID == idPoslovnice)
+                                                            .FirstOrDefault();
+
+                if (sef != null)
+                {
+                    sefToReturn = new SefView(sef);
+                }
+                else
+                {
+                    return "Šef za ovu poslovnicu nije pronađen.".ToError(404);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            return "Nemoguće vratiti šefa ove poslovnice.".ToError(400);
+        }
+        finally
+        {
+            session?.Close();
+        }
+
+        return sefToReturn;
     }
 
     public static Result<SefView, ErrorMessage> VratiSefa(string mbr)

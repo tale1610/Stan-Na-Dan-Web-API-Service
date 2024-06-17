@@ -41,6 +41,23 @@ namespace StanNaDanWebAPIService.Controllers
             return Ok(sef);
         }
 
+        [HttpGet]
+        [Route("VratiSefaPoslovnice/{idPoslovnice}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult VratiSefaPoslovnice(int idPoslovnice)
+        {
+            (bool isError, var sef, ErrorMessage? error) = DataProvider.vratiSefaPoslovnice(idPoslovnice);
+
+            if (isError)
+            {
+                return StatusCode(error?.StatusCode ?? 400, error?.Message);
+            }
+
+            return Ok(sef);
+        }
+
         [HttpPost]
         [Route("DodajNovogSefa/{idPoslovnice}")]
         [ProducesResponseType(StatusCodes.Status201Created)]

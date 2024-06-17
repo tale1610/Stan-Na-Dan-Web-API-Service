@@ -82,7 +82,7 @@ public class ZaposleniView
 public class SefView : ZaposleniView
 {
     public DateTime? DatumPostavljanja { get; set; }
-    public SefView()
+    public SefView() : base()
     {
     }
     public SefView(Sef? sef) : base(sef)
