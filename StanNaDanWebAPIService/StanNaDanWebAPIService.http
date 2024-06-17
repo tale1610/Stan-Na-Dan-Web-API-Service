@@ -38,6 +38,160 @@ Content-Type: application/json
 ### Menja adresu i radno vreme poslovnice sa ID 1
 
 
+###-----------------------------------KVART--------------------------------------------------
+
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Kvart/VratiSveKvartove
+Accept: application/json
+### Vracanje svih kvartova
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Kvart/VratiSveKvartovePoslovnice/1
+Accept: application/json
+### Vraca sve kvartove poslovnice na osnovu ID
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Kvart/VratiKvart/1
+Accept: application/json
+### Vraca kvart na osnovu ID
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Kvart/DodajNoviKvart/1
+Content-Type: application/json
+
+{
+  "gradskaZona" : "Tijabara"
+}
+### Dodaje novi kvart poslovnici sa ID 1
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Kvart/IzmeniKvart/1
+Content-Type: application/json
+
+{
+    "gradskaZona" : "Medijana"
+}
+### Menja gradsku zonu kvarta sa ID 1
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Kvart/ObrisiKvart/22
+### Brisemo kvart sa ID 22
+
+
+//DELETE {{StanNaDanWebAPIService_HostAddress}}/Vlasnik/ObrisiVlasnika?pib=987654321
+### Brisemo vlasnika sa ID 
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/VratiSvaPravnaLica
+Accept: application/json
+### Vraca sva pravna lica
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/VratiPravnoLice/123456789
+Accept: application/json
+### Vraca pravno lice na osnovu ID
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/DodajNovoPravnoLice
+Content-Type: application/json
+
+{
+  "pib": "129496989",
+  "naziv": "DELI",
+  "adresaSedista": "PIROT, Kapetana Karanovica 44",
+  "imeKontaktOsobe": "Predrag Ostojic",
+  "emailKontaktOsobe": "ostoje@gmail.com",
+  "vlasnik": {
+    "banka": "Erste Bank",
+    "brojBankovnogRacuna": "987994144"
+  }
+}
+### Dodaje novi kvart poslovnici sa ID 1
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/IzmeniPravnoLice/129496989
+Content-Type: application/json
+
+{
+  "pib": "129496989",
+  "naziv": "DELI",
+  "adresaSedista": "PIROT, Kapetana Karanovica 44",
+  "imeKontaktOsobe": "Nebojsa Ostojic",
+  "emailKontaktOsobe": "ostoje@gmail.com",
+  "vlasnik": {
+    "banka": "Erste Bank",
+    "brojBankovnogRacuna": "987994154"
+  }
+}
+### Menja ime kontakt osobe i broj bankovnog racuna pravnog lica sa ID 
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/ObrisiPravnoLice/129496989
+### Brisemo kvart sa ID 129496989
+
+
+###-----------------------------------FIZICKO_LICE----------------------------------------
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/VratiSvaFizickaLica
+Accept: application/json
+### Vraca sva fizicka lica
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/DodajNovoFizickoLice
+Content-Type: application/json
+
+{
+  "jmbg": "1234567890444",
+  "ime": "Kosta",
+  "imeRoditelja": "Milan",
+  "prezime": "Arsic",
+  "drzava": "Srbija",
+  "mestoStanovanja": "Beograd",
+  "adresaStanovanja": "Brace Jerkovica 45",
+  "datumRodjenja": "2000-11-07T00:00:00",
+  "email": "arsa@elfak.rs",
+  "vlasnik": {
+    "banka": "Raiffeisen Banka Srbije",
+    "brojBankovnogRacuna": "123456780"
+  }
+}
+### Dodaje novo fizicko lice
+
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/VratiFizickoLice/1234567890444
+Accept: application/json
+### Vraca fizicko lice na osnovu JMBG
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/IzmeniFizickoLice/1234567890444
+Content-Type: application/json
+
+{
+  "jmbg": "1234567890444",
+  "ime": "Ostoje",
+  "imeRoditelja": "Milan",
+  "prezime": "Arsic",
+  "drzava": "Srbija",
+  "mestoStanovanja": "Beograd",
+  "adresaStanovanja": "Brace Jerkovica 45",
+  "datumRodjenja": "2000-11-07T00:00:00",
+  "email": "ostoje@elfak.rs",
+  "vlasnik": {
+    "banka": "Raiffeisen Banka Srbije",
+    "brojBankovnogRacuna": "123006780"
+  }
+}
+### Menja ime, email i broj bankovnog racuna fizicko lice
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/ObrisiFizickoLice/1234567890444
+### Brisemo fizicko lice sa JMBG 1234567890444
+
+
+
 DELETE {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/ObrisiPoslovnicu/45
 ### Testiranje brisanja poslovnice sa id 45, na adresi slavonska 88
 
@@ -147,8 +301,97 @@ Content-Type:application/json
 }
 ### Testira izmenu podataka o sefu
 
+
   
 ###-----------------------------------NEKRETNINE---------------------------------------------
+
+  
+  
+###---------------------------------DODATNA_OPREMA-------------------------------------------
+
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/DodajDodatnuOpremu/1
+Content-Type:application/json
+
+{
+  "mbr": "1107002732577",
+  "ime": "Milorad",
+  "prezime": "Dodati",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "strucnaSprema": "Diplomirani ekonomista"
+}
+### Testira dodavanje novog agenta i njegovo zaposljavanje u poslovnicu sa ID 41
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/VratiSvuDodatnuOpremuNekretnine/1
+Accept:application/json
+### Testira vracanje svih sefova iz baze podataka
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/VratiDodatnuOpremu/1
+Accept:application/json
+### Testira vracanje sefa na osnovu maticnog broja
+
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/IzmeniDodatnuOpremu/1107002732523
+Content-Type:application/json
+
+{
+  "ime": "Milorad",
+  "prezime": "IzmenjeniSef",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "datumPostavljanja": "2024-06-16T01:15:14.547Z"
+}
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/DodatnaOprema/ObrisiDodatnuOpremu/1107002732599
+### Testira brisanje zaposlenog sa zadatim ID (taj koji se brise zove se Obrisi Obrisi)
+
+
+
+###---------------------------------PARKING-----------------------------------------------------------
+
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/Parking/DodajParking/1
+Content-Type:application/json
+
+{
+  "besplatan": false,
+  "cena": 1700,
+  "uSastavuNekretnine": true,
+  "uSastavuJavnogParkinga": false
+}
+### Testira dodavanje novog agenta i njegovo zaposljavanje u poslovnicu sa ID 41
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Parking/VratiSveParkingeNekretnine/1
+Accept:application/json
+### Testira vracanje svih parking mesta iz baze podataka
+
+
+GET {{StanNaDanWebAPIService_HostAddress}}/Parking/VratiParking/1/1
+Accept:application/json
+### Testira vracanje sefa na osnovu maticnog broja
+
+
+
+PUT {{StanNaDanWebAPIService_HostAddress}}/Parking/IzmeniParking/1
+Content-Type:application/json
+
+{
+  "ime": "Milorad",
+  "prezime": "IzmenjeniSef",
+  "datumZaposlenja": "2024-06-16T01:15:14.547Z",
+  "datumPostavljanja": "2024-06-16T01:15:14.547Z"
+}
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Parking/ObrisiParking/1/1
+### Testira brisanje zaposlenog sa zadatim ID (taj koji se brise zove se Obrisi Obrisi)
+
 
 GET {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/VratiSveNekretnine
 Accept:application/json

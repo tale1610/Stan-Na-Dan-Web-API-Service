@@ -1309,7 +1309,7 @@ public class DataProvider
         }
     }
 
-    public static Result<bool, ErrorMessage> IzmeniFizickoLice(FizickoLiceView izmenjenoFizickoLice)
+    public static Result<bool, ErrorMessage> IzmeniFizickoLice(string jmbg, FizickoLiceView izmenjenoFizickoLice)
     {
         ISession? session = null;
         try
@@ -1317,7 +1317,7 @@ public class DataProvider
             session = DataLayer.GetSession();
             if (session != null && session.IsOpen)
             {
-                FizickoLice fizickoLice = session.Get<FizickoLice>(izmenjenoFizickoLice.JMBG);
+                FizickoLice fizickoLice = session.Get<FizickoLice>(jmbg);
                 if (fizickoLice != null)
                 {
                     fizickoLice.Ime = izmenjenoFizickoLice.Ime;
