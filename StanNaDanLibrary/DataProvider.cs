@@ -2569,7 +2569,7 @@ public class DataProvider
         }
         catch (Exception ex)
         {
-            return $"Greška prilikom izmjene parkinga: {ex.Message}".ToError(400);
+            return $"Greška prilikom izmene parkinga: {ex.Message}".ToError(400);
         }
         finally
         {
@@ -2776,7 +2776,7 @@ public class DataProvider
                 }
                 else
                 {
-                    return $"Sajt nekretnine sa sajtom {stariSajt} i ID-om nekretnine {idNekretnine} nije pronađen.".ToError(404);
+                    return $"Sajt nekretnine sa {stariSajt} za nekretninu sa ID: {idNekretnine} nije pronađen.".ToError(404);
                 }
             }
             else
@@ -2786,7 +2786,7 @@ public class DataProvider
         }
         catch (Exception ex)
         {
-            return $"Greška prilikom izmjene sajta nekretnine: {ex.Message}".ToError(400);
+            return $"Greška prilikom izmene sajta nekretnine: {ex.Message}".ToError(400);
         }
         finally
         {
@@ -2991,7 +2991,7 @@ public class DataProvider
         }
         catch (Exception ex)
         {
-            return $"Greška prilikom izmjene broja telefona: {ex.Message}".ToError(400);
+            return $"Greška prilikom izmene broja telefona: {ex.Message}".ToError(400);
         }
         finally
         {
@@ -3186,7 +3186,7 @@ public class DataProvider
         }
         catch (Exception ex)
         {
-            return $"Greška prilikom izmjene telefona kontakt osobe: {ex.Message}".ToError(400);
+            return $"Greška prilikom izmene telefona kontakt osobe: {ex.Message}".ToError(400);
         }
         finally
         {
@@ -3640,7 +3640,7 @@ public class DataProvider
         }
         catch (Exception ex)
         {
-            return $"Greška prilikom izmjene zajedničke prostorije: {ex.Message}".ToError(400);
+            return $"Greška prilikom izmene zajedničke prostorije: {ex.Message}".ToError(400);
         }
         finally
         {
@@ -3943,7 +3943,7 @@ public class DataProvider
         }
         catch (Exception ex)
         {
-            return $"Greška prilikom izmjene najma: {ex.Message}".ToError(400);
+            return $"Greška prilikom izmene najma: {ex.Message}".ToError(400);
         }
         finally
         {

@@ -22,21 +22,24 @@ POST {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/DodajPoslovnicu
 Content-Type: application/json
 
 {
-  "adresa" : "PIROT, Slavonska 98",
+  "adresa" : "PIROT, Dummy Poslovnica 98",
   "radnoVreme" : "13:00 - 05:00h"
 }
 ### Testira dodavanje nove poslovnice
 
 
-PUT {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/IzmeniPoslovnicu/61
+PUT {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/IzmeniPoslovnicu/62
 Content-Type: application/json
 
 {
   "adresa" : "NIS, Milojka Lesnjanina 18",
   "radnoVreme" : "12:00 - 04:00h"
 }
-### Menja adresu i radno vreme poslovnice sa ID 1
+### Menja adresu i radno vreme poslovnice sa ID 62 (trenutna dummy poslovnica za demonstraciju testa)
 
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/ObrisiPoslovnicu/62
+### Testira brisanje poslovnice sa ID 62
 
 ###-----------------------------------KVART--------------------------------------------------
 
@@ -72,15 +75,11 @@ Content-Type: application/json
 {
     "gradskaZona" : "Medijana"
 }
-### Menja gradsku zonu kvarta sa ID 1
+### Menja gradsku zonu kvarta sa ID 42 (dummy kvart za brisanje)
 
 
 DELETE {{StanNaDanWebAPIService_HostAddress}}/Kvart/ObrisiKvart/42
-### Brisemo kvart sa ID 22
-
-
-//DELETE {{StanNaDanWebAPIService_HostAddress}}/Vlasnik/ObrisiVlasnika?pib=987654321
-### Brisemo vlasnika sa ID 
+### Brisemo kvart sa ID 42
 
 
 
@@ -110,7 +109,7 @@ Content-Type: application/json
     "brojBankovnogRacuna": "987994144"
   }
 }
-### Dodaje novi kvart poslovnici sa ID 1
+### Dodaje novo pravno lice (ovo pravno lice ce demonstrirati brisanje u narednom testu)
 
 
 PUT {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/IzmeniPravnoLice/129496989
@@ -127,11 +126,11 @@ Content-Type: application/json
     "brojBankovnogRacuna": "987994154"
   }
 }
-### Menja ime kontakt osobe i broj bankovnog racuna pravnog lica sa ID 
+### Menja ime kontakt osobe i broj bankovnog racuna pravnog lica na osnovu PIBa
 
 
 DELETE {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/ObrisiPravnoLice/129496989
-### Brisemo kvart sa ID 129496989
+### Brisemo pravno lice sa prosledjenim PIBom
 
 
 ###-----------------------------------FIZICKO_LICE----------------------------------------
@@ -146,7 +145,7 @@ POST {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/DodajNovoFizickoLice
 Content-Type: application/json
 
 {
-  "jmbg": "1234567890444",
+  "jmbg": "1234567890555",
   "ime": "Kosta",
   "imeRoditelja": "Milan",
   "prezime": "Arsic",
@@ -160,16 +159,16 @@ Content-Type: application/json
     "brojBankovnogRacuna": "123456780"
   }
 }
-### Dodaje novo fizicko lice
+### Dodaje novo fizicko lice (bice obrisano sledecim funkcijama)
 
 
 
-GET {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/VratiFizickoLice/1234567890444
+GET {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/VratiFizickoLice/1234567890555
 Accept: application/json
 ### Vraca fizicko lice na osnovu JMBG
 
 
-PUT {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/IzmeniFizickoLice/1234567890444
+PUT {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/IzmeniFizickoLice/1234567890555
 Content-Type: application/json
 
 {
@@ -190,13 +189,9 @@ Content-Type: application/json
 ### Menja ime, email i broj bankovnog racuna fizicko lice
 
 
-DELETE {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/ObrisiFizickoLice/1234567890444
-### Brisemo fizicko lice sa JMBG 1234567890444
-
-
-
-DELETE {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/ObrisiPoslovnicu/45
-### Testiranje brisanja poslovnice sa id 45, na adresi slavonska 88
+DELETE {{StanNaDanWebAPIService_HostAddress}}/FizickoLice/ObrisiFizickoLice/1234567890555
+### Brisemo fizicko lice sa JMBG 1234567890555
+### (Napomea) Kroz dodavanje/brisanje fizickih/pravnih lica dodaju se i brisu vlasnici, zato sto je to realizovana kategorija iz EER mdoela, zbog toga nemamo CRUD operacije posebno za Vlasnik entitet
 
 
 ###-----------------------------------ZAPOSLENI---------------------------------------------
@@ -416,7 +411,7 @@ Content-Type:application/json
 ### Testira dodavanje novog stana postojecem vlasniku na postojecem kvartu
 
 
-PUT {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/IzmeniKucu/41
+PUT {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/IzmeniKucu/61
 Content-Type:application/json
 
 {
@@ -435,7 +430,7 @@ Content-Type:application/json
 ### Testira menjanje podataka o kuci sa prosledjenim ID
 
 
-PUT {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/IzmeniStan/42
+PUT {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/IzmeniStan/62
 Content-Type:application/json
 
 {
@@ -454,7 +449,7 @@ Content-Type:application/json
 ### Testira promenu podataaka o stanu sa prosledjenim ID
 
 
-DELETE {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/ObrisiNekretninu/42
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Nekretnina/ObrisiNekretninu/61
 ### Testira brisanje nekretnine sa prosledjenim ID
 
 
@@ -518,7 +513,7 @@ Content-Type:application/json
   "uSastavuNekretnine": true,
   "uSastavuJavnogParkinga": false
 }
-### Testira dodavanje novog parkinga nekretnini sa prosledjenim id sa prosledjenim IDem parkinga
+### Testira dodavanje novog parkinga nekretnini sa prosledjenim id sa prosledjenim IDem parkinga (bice obrisan)
 
 
 PUT {{StanNaDanWebAPIService_HostAddress}}/Parking/IzmeniParking/1/2
@@ -541,7 +536,7 @@ DELETE {{StanNaDanWebAPIService_HostAddress}}/Parking/ObrisiParking/1/2
 
 
 POST {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/DodajSajtNekretnine/1/www.stanNaDan.com
-### Testira dodavanje novog sajta nekretnini sa prosledjenim id
+### Testira dodavanje novog sajta nekretnini sa prosledjenim id (koristi se u testovima)
 
 
 GET {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/VratiSveSajtoveNekretnine/1
@@ -557,7 +552,7 @@ PUT {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/IzmeniSajtNekretnin
 ### Testiranje azuriranja sajta
 
 
-DELETE {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/ObrisiSajtNekretnine/www.stanNaDan.com/1
+DELETE {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/ObrisiSajtNekretnine/www.novi.com/1
 ### Testira brisanje sajta
 
 
@@ -565,7 +560,7 @@ DELETE {{StanNaDanWebAPIService_HostAddress}}/SajtoviNekretnine/ObrisiSajtNekret
 
 
 POST {{StanNaDanWebAPIService_HostAddress}}/BrojeviTelefona/DodajBrojTelefona/1234567890123/+381%2069%205594999
-### Testira dodavanje novog sajta nekretnini sa prosledjenim id
+### Testira dodavanje novog broja telefona (bice koriscen za brisanje)
 
 
 GET {{StanNaDanWebAPIService_HostAddress}}/BrojeviTelefona/VratiSveBrojeveTelefona/1234567890123
@@ -590,8 +585,7 @@ DELETE {{StanNaDanWebAPIService_HostAddress}}/BrojeviTelefona/ObrisiBrojTelefona
 
 
 POST {{StanNaDanWebAPIService_HostAddress}}/TelefoniKontaktOsobe/DodajTelefonKontaktOsobe/+381%2064%205594977/123456789
-### Testira dodavanje novog sajta nekretnini sa prosledjenim id
-
+### Testira dodavanje novog telefona kontakt osobi pravnog lica (bice obrisan)
 
 GET {{StanNaDanWebAPIService_HostAddress}}/TelefoniKontaktOsobe/VratiSveTelefoneKontaktOsobe/123456789
 Accept:application/json
@@ -706,25 +700,25 @@ Content-Type:application/json
   "provizijaAgencije": 11,
   "adresaNekretnine": "NIS, Ulica Svetozara Markovića 7"
 }
-### Testira dodavanje novog najma sa spoljnim saradnikom
+### Testira dodavanje novog najma sa spoljnim saradnikom (koristi se za demonstraciju update,delete)
 
 
 GET {{StanNaDanWebAPIService_HostAddress}}/Najam/VratiSveNajmove/1/3
 Accept:application/json
-### Testira vracanje svih brojeva telefona iz baze podataka za pravno lice sa prosledjenim pib
+### Testira vracanje svih najmova sobe
 
 
 GET {{StanNaDanWebAPIService_HostAddress}}/Najam/VratiSveNajmoveNekretnine/3
 Accept:application/json
-### Testira vracanje konkretnog telefona sa podacima pravnog lica sa prosledjenim pib
+### Testira vracanje svih iznajmljivanja nekretnine sa prosledjenim ID
 
 
-GET {{StanNaDanWebAPIService_HostAddress}}/Najam/VratiNajam/84
+GET {{StanNaDanWebAPIService_HostAddress}}/Najam/VratiNajam/85
 Accept:application/json
-### Testira vracanje konkretnog telefona sa podacima pravnog lica sa prosledjenim pib
+### Testira vracanje konkretnog najma na osnovu ID
 
 
-PUT {{StanNaDanWebAPIService_HostAddress}}/Najam/IzmeniNajam/84
+PUT {{StanNaDanWebAPIService_HostAddress}}/Najam/IzmeniNajam/85
 Content-Type:application/json
 
 {
@@ -740,9 +734,47 @@ Content-Type:application/json
 ### Testira izmenu datuma pocetka i cene po danu
 
 
-DELETE {{StanNaDanWebAPIService_HostAddress}}/Najam/ObrisiNajam/83
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Najam/ObrisiNajam/85
 ### Testira brisanje najma
 
 
 
 ###-----------------------------------IZNAJMLJENA_SOBA---------------------------------------------------------
+
+  
+GET {{StanNaDanWebAPIService_HostAddress}}/IznajmljenaSoba/VratiSveIznajmljeneSobe
+Accept:application/json
+### Testira vracanje svih iznajmljivanja svih soba - vraca sobu zajedno sa najmom u kojem je ona izdata
+
+  
+GET {{StanNaDanWebAPIService_HostAddress}}/VratiIznajmljenuSobu/3/4/5
+Accept:application/json
+### Testira vracanje specificnog iznajmljivanja sobe koje je odredjeno sobom (idSobe+idNekretnine) i najmom (idNajma) kada je ona izdata
+
+
+POST {{StanNaDanWebAPIService_HostAddress}}/IznajmljenaSoba/DodajIznajmljenuSobu/4444444444444/4?idSoba=1&idSoba=2
+Content-Type:application/json
+
+{
+  "ID":
+  {
+    "najam": 
+    {
+      "datumPocetka": "2024-06-18T20:21:12.178Z",
+      "datumZavrsetka": "2024-06-28T20:21:12.178Z",
+      "cenaPoDanu": 1000,
+      "popust": 15,
+      "provizijaAgencije": 10
+    }
+  }
+}
+### Testira dodavanje iznajmljivanja proizvoljnog broja soba koje moraju da budu iz iste nekretnine. Prosledjuje se maticni broj agenta koji realizuje najam, id nekretnine,
+### zatim niz idjeva soba koje zelimo da izdamo i opciono na kraju id spoljnog saradnika datog agenta koji moze da ucestvuje u najmu
+### Ova akcija ce dodati jedan novi najam, i dva nova iznajmljivanja sobe povezane sa tim najmom.
+
+
+DELETE {{StanNaDanWebAPIService_HostAddress}}/IznajmljenaSoba/ObrisiIznajmljenuSobu/2/4/88
+### Testira brisanje posebnog iznajmljivanja sobe koja je prosledjena preko (idSobe + idNekretnine + idNajma)
+### Ovo ce obrisati samo unos iz tabele iznajmljena soba, za tu specificnu sobu, 
+### Ali ako se obrisu svi unosi iz tabele iznajmljena soba koji su povezani sa datim najmom, obrisace se i taj najam iz tabele najam
+### Da bi se ovo testiralo, mozete izvrsiti ovaj test i sa 1/4/88

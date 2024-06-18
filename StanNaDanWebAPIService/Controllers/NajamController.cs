@@ -26,11 +26,11 @@ namespace StanNaDanWebAPIService.Controllers
         }
 
         [HttpGet]
-        [Route("VratiSveNajmove/{idSobe}/{idNekretnine}")]
+        [Route("VratiSveNajmove")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> VratiSveNajmove(int idSobe, int idNekretnine)
+        public async Task<IActionResult> VratiSveNajmove()
         {
             (bool isError, var najmovi, ErrorMessage? error) = await DataProvider.VratiSveNajmoveAsync();
 
