@@ -1,9 +1,9 @@
 ﻿namespace StanNaDanLibrary.Entiteti;
 
-public class ZajednickeProstorijeId
+internal class ZajednickeProstorijeId
 {
-    virtual public required Soba Soba { get; set; }
-    virtual public required string ZajednickaProstorija { get; set; }
+    virtual internal protected required Soba Soba { get; set; }
+    virtual internal protected required string ZajednickaProstorija { get; set; }
 
     public override bool Equals(object? obj)
     {

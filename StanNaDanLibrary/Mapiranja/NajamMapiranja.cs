@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class NajamMapiranja : ClassMap<Najam>
+    internal class NajamMapiranja : ClassMap<Najam>
     {
         public NajamMapiranja() {
 

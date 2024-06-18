@@ -1,9 +1,9 @@
 ﻿namespace StanNaDanLibrary.Entiteti
 {
-    public class IznajmljenaSobaId
+    internal class IznajmljenaSobaId
     {
-        virtual public required Soba Soba { get; set; }
-        virtual public required Najam Najam { get; set; }
+        virtual internal protected required Soba Soba { get; set; }
+        virtual internal protected required Najam Najam { get; set; }
 
         public override bool Equals(object? obj)
         {

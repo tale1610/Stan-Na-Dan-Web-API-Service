@@ -1,9 +1,9 @@
 ﻿namespace StanNaDanLibrary.Entiteti;
 
-public class SpoljniSaradnikId
+internal class SpoljniSaradnikId
 {
-    virtual public required Agent AgentAngazovanja { get; set; }
-    virtual public required int IdSaradnika { get; set; }
+    virtual internal protected required Agent AgentAngazovanja { get; set; }
+    virtual internal protected required int IdSaradnika { get; set; }
 
 
     public override bool Equals(object? obj)

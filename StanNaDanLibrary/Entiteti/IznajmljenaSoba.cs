@@ -1,6 +1,6 @@
 ﻿namespace StanNaDan.Entiteti;
 
-public class IznajmljenaSoba
+internal class IznajmljenaSoba
 {
-    virtual public required IznajmljenaSobaId ID { get; set; }
+    virtual internal protected required IznajmljenaSobaId ID { get; set; }
 }

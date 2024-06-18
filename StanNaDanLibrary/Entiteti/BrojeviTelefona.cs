@@ -1,9 +1,9 @@
 ﻿namespace StanNaDanLibrary.Entiteti
 {
-    public class BrojeviTelefona
+    internal class BrojeviTelefona
     {
-        virtual public required string BrojTelefona { get; set; }//ovo je PK nema potrebe za surogatom jer je broj jedinstven
+        virtual internal protected required string BrojTelefona { get; set; }//ovo je PK nema potrebe za surogatom jer je broj jedinstven
         //veza
-        virtual public required FizickoLice FizickoLice { get; set; }
+        virtual internal protected required FizickoLice FizickoLice { get; set; }
     }
 }

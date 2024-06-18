@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class PoslovnicaMapiranja :ClassMap<Poslovnica>
+    internal class PoslovnicaMapiranja :ClassMap<Poslovnica>
     {
         public PoslovnicaMapiranja() {
             Table("POSLOVNICA");

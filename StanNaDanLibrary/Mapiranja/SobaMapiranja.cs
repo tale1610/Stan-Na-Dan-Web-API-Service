@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja;
 
-class SobaMapiranja : ClassMap<Soba>
+internal class SobaMapiranja : ClassMap<Soba>
 {
     public SobaMapiranja() 
     {

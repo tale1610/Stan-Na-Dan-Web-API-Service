@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    public class FizickoLiceMapiranja : ClassMap<FizickoLice>
+    internal class FizickoLiceMapiranja : ClassMap<FizickoLice>
     {
         public FizickoLiceMapiranja()
         {

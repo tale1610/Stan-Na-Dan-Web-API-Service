@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class ParkingMapiranja : ClassMap<Parking>
+    internal class ParkingMapiranja : ClassMap<Parking>
     {
         public ParkingMapiranja() {
             Table("PARKING");

@@ -1,9 +1,9 @@
 ﻿namespace StanNaDanLibrary.Entiteti;
 
-public class DodatnaOpremaId
+internal class DodatnaOpremaId
 {
-    virtual public required int IdOpreme { get; set; }
-    virtual public required Nekretnina Nekretnina { get; set; }
+    virtual internal protected required int IdOpreme { get; set; }
+    virtual internal protected required Nekretnina Nekretnina { get; set; }
 
     public override bool Equals(object? obj)
     {

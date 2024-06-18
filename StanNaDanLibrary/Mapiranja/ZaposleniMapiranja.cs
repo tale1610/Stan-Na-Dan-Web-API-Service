@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class ZaposleniMapiranja : ClassMap<Zaposleni>
+    internal class ZaposleniMapiranja : ClassMap<Zaposleni>
     {
         public ZaposleniMapiranja() {
             Table("ZAPOSLENI");
@@ -17,7 +17,7 @@
             References(p => p.Poslovnica).Column("ID_POSLOVNICE").LazyLoad();
         }
     }
-    class SefMapiranja : SubclassMap<Sef>
+    internal class SefMapiranja : SubclassMap<Sef>
     {
         public SefMapiranja()
         {
@@ -26,7 +26,7 @@
             Map(p => p.DatumPostavljanja, "DATUM_POSTAVLJANJA");
         }
     }
-    class AgentMapiranja : SubclassMap<Agent>
+    internal class AgentMapiranja : SubclassMap<Agent>
     {
         public AgentMapiranja()
         {
@@ -38,7 +38,7 @@
             HasMany(p => p.RealizovaniNajmovi).KeyColumn("MBR_AGENTA").Cascade.All().Inverse();
         }
     }
-    class RadnikMapiranja : SubclassMap<Radnik>
+    internal class RadnikMapiranja : SubclassMap<Radnik>
     {
         public RadnikMapiranja()
         {

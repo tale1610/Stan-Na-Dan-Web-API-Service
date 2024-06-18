@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class NekretninaMapiranja : ClassMap<Nekretnina>
+    internal class NekretninaMapiranja : ClassMap<Nekretnina>
     {
         public NekretninaMapiranja() {
             Table("NEKRETNINA");
@@ -38,7 +38,7 @@
         }
     }
 
-    class StanMapiranja : SubclassMap<Stan>
+    internal class StanMapiranja : SubclassMap<Stan>
     {
         public StanMapiranja()
         {
@@ -50,7 +50,7 @@
         }
     }
 
-    class KucaMapiranja : SubclassMap<Kuca>
+    internal class KucaMapiranja : SubclassMap<Kuca>
     {
         public KucaMapiranja()
         {

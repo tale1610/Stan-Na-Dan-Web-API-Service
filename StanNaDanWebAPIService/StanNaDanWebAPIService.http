@@ -28,7 +28,7 @@ Content-Type: application/json
 ### Testira dodavanje nove poslovnice
 
 
-PUT {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/IzmeniPoslovnicu/1
+PUT {{StanNaDanWebAPIService_HostAddress}}/Poslovnica/IzmeniPoslovnicu/61
 Content-Type: application/json
 
 {
@@ -66,7 +66,7 @@ Content-Type: application/json
 ### Dodaje novi kvart poslovnici sa ID 1
 
 
-PUT {{StanNaDanWebAPIService_HostAddress}}/Kvart/IzmeniKvart/1
+PUT {{StanNaDanWebAPIService_HostAddress}}/Kvart/IzmeniKvart/42
 Content-Type: application/json
 
 {
@@ -75,13 +75,16 @@ Content-Type: application/json
 ### Menja gradsku zonu kvarta sa ID 1
 
 
-DELETE {{StanNaDanWebAPIService_HostAddress}}/Kvart/ObrisiKvart/22
+DELETE {{StanNaDanWebAPIService_HostAddress}}/Kvart/ObrisiKvart/42
 ### Brisemo kvart sa ID 22
 
 
 //DELETE {{StanNaDanWebAPIService_HostAddress}}/Vlasnik/ObrisiVlasnika?pib=987654321
 ### Brisemo vlasnika sa ID 
 
+
+
+###-----------------------------------PRAVNO_LICE----------------------------------------------------------
 
 GET {{StanNaDanWebAPIService_HostAddress}}/PravnoLice/VratiSvaPravnaLica
 Accept: application/json

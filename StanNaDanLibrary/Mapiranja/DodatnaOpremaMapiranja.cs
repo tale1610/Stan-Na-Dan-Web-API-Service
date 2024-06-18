@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class DodatnaOpremaMapiranja : ClassMap<DodatnaOprema>
+    internal class DodatnaOpremaMapiranja : ClassMap<DodatnaOprema>
     {
         public DodatnaOpremaMapiranja() {
 

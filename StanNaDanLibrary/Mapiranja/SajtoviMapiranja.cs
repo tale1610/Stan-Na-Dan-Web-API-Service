@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class SajtoviMapiranja : ClassMap<SajtoviNekretnine>
+    internal class SajtoviMapiranja : ClassMap<SajtoviNekretnine>
     {
         public SajtoviMapiranja()
         {

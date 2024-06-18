@@ -1,9 +1,9 @@
 ﻿namespace StanNaDanLibrary.Entiteti
 {
-    public class TelefoniKontaktOsobe
+    internal class TelefoniKontaktOsobe
     {
-        public virtual required string BrojTelefona { get; set; }
+        internal protected virtual required string BrojTelefona { get; set; }
         //veza
-        public virtual required PravnoLice PravnoLice { get; set; }
+        internal protected virtual required PravnoLice PravnoLice { get; set; }
     }
 }

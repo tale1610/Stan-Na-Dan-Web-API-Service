@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    public class PravnoLiceMapiranja : ClassMap<PravnoLice>
+    internal class PravnoLiceMapiranja : ClassMap<PravnoLice>
     {
         public PravnoLiceMapiranja()
         {

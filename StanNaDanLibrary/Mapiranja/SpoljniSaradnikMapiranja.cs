@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class SpoljniSaradnikMapiranja : ClassMap<SpoljniSaradnik>
+    internal class SpoljniSaradnikMapiranja : ClassMap<SpoljniSaradnik>
     {
         public SpoljniSaradnikMapiranja()
         {

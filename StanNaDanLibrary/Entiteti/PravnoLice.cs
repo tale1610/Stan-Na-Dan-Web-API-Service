@@ -1,14 +1,14 @@
 ﻿namespace StanNaDanLibrary.Entiteti
 {
-    public class PravnoLice
+    internal class PravnoLice
     {
-        public virtual required string PIB { get; set; }
-        public virtual required string Naziv { get; set; }
-        public virtual required string AdresaSedista { get; set; }
-        public virtual required string ImeKontaktOsobe { get; set; }
-        public virtual required string EmailKontaktOsobe { get; set; }
+        internal protected virtual required string PIB { get; set; }
+        internal protected virtual required string Naziv { get; set; }
+        internal protected virtual required string AdresaSedista { get; set; }
+        internal protected virtual required string ImeKontaktOsobe { get; set; }
+        internal protected virtual required string EmailKontaktOsobe { get; set; }
         //veze
-        public virtual required Vlasnik Vlasnik { get; set; }
-        public virtual IList<TelefoniKontaktOsobe> TelefoniKontaktOsobe { get; set; } = [];
+        internal protected virtual required Vlasnik Vlasnik { get; set; }
+        internal protected virtual IList<TelefoniKontaktOsobe> TelefoniKontaktOsobe { get; set; } = [];
     }
 }

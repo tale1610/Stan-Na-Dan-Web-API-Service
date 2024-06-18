@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class IznajmljenaSobaMapiranja : ClassMap<IznajmljenaSoba>
+    internal class IznajmljenaSobaMapiranja : ClassMap<IznajmljenaSoba>
     {
         public IznajmljenaSobaMapiranja()
         {

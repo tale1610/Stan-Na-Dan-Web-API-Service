@@ -16,7 +16,7 @@ public class PoslovnicaView
         Kvartovi = new List<KvartView>();
     }
 
-    public PoslovnicaView(Poslovnica? poslovnica) : this()
+    internal PoslovnicaView(Poslovnica? poslovnica) : this()
     {
         if (poslovnica != null)
         {
@@ -41,7 +41,7 @@ public class PoslovnicaDTO
 
     }
 
-    public PoslovnicaDTO(Poslovnica? poslovnica) : this()
+    internal PoslovnicaDTO(Poslovnica? poslovnica) : this()
     {
         if (poslovnica != null)
         {
@@ -66,7 +66,7 @@ public class ZaposleniView
     public ZaposleniView()
     {
     }
-    public ZaposleniView(Zaposleni? zaposleni)
+    internal ZaposleniView(Zaposleni? zaposleni)
     {
         if (zaposleni != null)
         {
@@ -85,7 +85,7 @@ public class SefView : ZaposleniView
     public SefView() : base()
     {
     }
-    public SefView(Sef? sef) : base(sef)
+    internal SefView(Sef? sef) : base(sef)
     {
         if (sef != null)
         {
@@ -100,7 +100,7 @@ public class AgentView : ZaposleniView
     public AgentView() : base()
     {
     }
-    public AgentView(Agent? agent) : base(agent)
+    internal AgentView(Agent? agent) : base(agent)
     {
         if (agent != null)
         {
@@ -118,7 +118,7 @@ public class ZaposleniDTO
     public ZaposleniDTO()
     {
     }
-    public ZaposleniDTO(Zaposleni? zaposleni)
+    internal ZaposleniDTO(Zaposleni? zaposleni)
     {
         if (zaposleni != null)
         {
@@ -136,7 +136,7 @@ public class SefDTO : ZaposleniDTO
     public SefDTO() : base()
     {
     }
-    public SefDTO(Sef? sef) : base(sef)
+    internal SefDTO(Sef? sef) : base(sef)
     {
         if (sef != null)
         {
@@ -151,7 +151,7 @@ public class AgentDTO : ZaposleniDTO
     public AgentDTO() : base()
     {
     }
-    public AgentDTO(Agent? agent) : base(agent)
+    internal AgentDTO(Agent? agent) : base(agent)
     {
         if (agent != null)
         {
@@ -182,7 +182,7 @@ public class SpoljniSaradnikIdView
     {
     }
 
-    public SpoljniSaradnikIdView(SpoljniSaradnikId? s)
+    internal SpoljniSaradnikIdView(SpoljniSaradnikId? s)
     {
         if (s != null)
         {
@@ -205,7 +205,7 @@ public class SpoljniSaradnikView
     {
     }
 
-    public SpoljniSaradnikView(SpoljniSaradnik saradnik)
+    internal SpoljniSaradnikView(SpoljniSaradnik saradnik)
     {
         if (saradnik != null)
         {
@@ -231,7 +231,7 @@ public class KvartView
     {
     }
 
-    public KvartView(Kvart? kvart)
+    internal KvartView(Kvart? kvart)
     {
         if (kvart != null)
         {
@@ -253,7 +253,7 @@ public class VlasnikView
 
     public VlasnikView() { }
 
-    public VlasnikView(Vlasnik? vlasnik)
+    internal VlasnikView(Vlasnik? vlasnik)
     {
         if (vlasnik != null)
         {
@@ -281,7 +281,7 @@ public class FizickoLiceView
 
     public FizickoLiceView() { }
 
-    public FizickoLiceView(FizickoLice? fizickoLice)
+    internal FizickoLiceView(FizickoLice? fizickoLice)
     {
         if (fizickoLice != null)
         {
@@ -312,7 +312,7 @@ public class PravnoLiceView
 
     public PravnoLiceView() { }
 
-    public PravnoLiceView(PravnoLice? pravnoLice)
+    internal PravnoLiceView(PravnoLice? pravnoLice)
     {
         if (pravnoLice != null)
         {
@@ -346,7 +346,7 @@ public class NekretninaView
 
     public NekretninaView() { }
 
-    public NekretninaView(Nekretnina? nekretnina)
+    internal NekretninaView(Nekretnina? nekretnina)
     {
         if (nekretnina != null)
         {
@@ -376,7 +376,7 @@ public class StanView : NekretninaView
 
     public StanView() { }
 
-    public StanView(Stan? stan)
+    internal StanView(Stan? stan)
         : base(stan)
     {
         if (stan != null)
@@ -396,7 +396,7 @@ public class KucaView : NekretninaView
 
     public KucaView() { }
 
-    public KucaView(Kuca? kuca)
+    internal KucaView(Kuca? kuca)
         : base(kuca)
     {
         if (kuca != null)
@@ -418,7 +418,7 @@ public class BrojeviTelefonaView
 
     public BrojeviTelefonaView() { }
 
-    public BrojeviTelefonaView(BrojeviTelefona? brojTelefona)
+    internal BrojeviTelefonaView(BrojeviTelefona? brojTelefona)
     {
         if (brojTelefona != null)
         {
@@ -439,7 +439,7 @@ public class DodatnaOpremaIdView
 
     public DodatnaOpremaIdView() { }
 
-    public DodatnaOpremaIdView(DodatnaOpremaId? d)
+    internal DodatnaOpremaIdView(DodatnaOpremaId? d)
     {
         if (d != null)
         {
@@ -458,7 +458,7 @@ public class DodatnaOpremaView
 
     public DodatnaOpremaView() { }
 
-    public DodatnaOpremaView(DodatnaOprema? dodatnaOprema)
+    internal DodatnaOpremaView(DodatnaOprema? dodatnaOprema)
     {
         if (dodatnaOprema != null)
         {
@@ -479,7 +479,7 @@ public class IznajmljenaSobaIdView
 
     public IznajmljenaSobaIdView() { }
 
-    public IznajmljenaSobaIdView(IznajmljenaSobaId? i)
+    internal IznajmljenaSobaIdView(IznajmljenaSobaId? i)
     {
         if (i != null)
         {
@@ -494,7 +494,7 @@ public class IznajmljenaSobaView
 
     public IznajmljenaSobaView() { }
 
-    public IznajmljenaSobaView(IznajmljenaSoba? iznajmljenaSoba)
+    internal IznajmljenaSobaView(IznajmljenaSoba? iznajmljenaSoba)
     {
         if (iznajmljenaSoba != null)
         {
@@ -512,7 +512,7 @@ public class KrevetIdView
 
     public KrevetIdView() { }
 
-    public KrevetIdView(KrevetId? k)
+    internal KrevetIdView(KrevetId? k)
     {
         if (k != null)
         {
@@ -529,7 +529,7 @@ public class KrevetView
 
     public KrevetView() { }
 
-    public KrevetView(Krevet? krevet)
+    internal KrevetView(Krevet? krevet)
     {
         if (krevet != null)
         {
@@ -560,7 +560,7 @@ public class NajamView
 
     public NajamView() { }
 
-    public NajamView(Najam? najam)
+    internal NajamView(Najam? najam)
     {
         if (najam != null)
         {
@@ -590,7 +590,7 @@ public class ParkingIdView
 
     public ParkingIdView() { }
 
-    public ParkingIdView(ParkingId? id)
+    internal ParkingIdView(ParkingId? id)
     {
         if (id != null)
         {
@@ -609,7 +609,7 @@ public class ParkingView
 
     public ParkingView() { }
 
-    public ParkingView(Parking parking)
+    internal ParkingView(Parking parking)
     {
         if (parking != null)
         {
@@ -631,7 +631,7 @@ public class SajtoviNekretnineIdView
 
     public SajtoviNekretnineIdView() { }
 
-    public SajtoviNekretnineIdView(SajtoviNekretnineId? id)
+    internal SajtoviNekretnineIdView(SajtoviNekretnineId? id)
     {
         if (id != null)
         {
@@ -648,7 +648,7 @@ public class SajtoviNekretnineView
 
     public SajtoviNekretnineView() { }
 
-    public SajtoviNekretnineView(SajtoviNekretnine? sajtoviNekretnine)
+    internal SajtoviNekretnineView(SajtoviNekretnine? sajtoviNekretnine)
     {
         if (sajtoviNekretnine != null)
         {
@@ -668,7 +668,7 @@ public class SobaIdView
 
     public SobaIdView() { }
 
-    public SobaIdView(SobaId? id)
+    internal SobaIdView(SobaId? id)
     {
         if (id != null)
         {
@@ -683,7 +683,7 @@ public class SobaView
 
     public SobaView() { }
 
-    public SobaView(Soba? soba)
+    internal SobaView(Soba? soba)
     {
         if (soba != null)
         {
@@ -703,7 +703,7 @@ public class TelefoniKontaktOsobeView
 
     public TelefoniKontaktOsobeView() { }
 
-    public TelefoniKontaktOsobeView(TelefoniKontaktOsobe? telefoniKontaktOsobe)
+    internal TelefoniKontaktOsobeView(TelefoniKontaktOsobe? telefoniKontaktOsobe)
     {
         if (telefoniKontaktOsobe != null)
         {
@@ -724,7 +724,7 @@ public class ZajednickeProstorijeIdView
 
     public ZajednickeProstorijeIdView() { }
 
-    public ZajednickeProstorijeIdView(ZajednickeProstorijeId? id)
+    internal ZajednickeProstorijeIdView(ZajednickeProstorijeId? id)
     {
         if (id != null)
         {
@@ -739,7 +739,7 @@ public class ZajednickeProstorijeView
 
     public ZajednickeProstorijeView() { }
 
-    public ZajednickeProstorijeView(ZajednickeProstorije? zajednickeProstorije)
+    internal ZajednickeProstorijeView(ZajednickeProstorije? zajednickeProstorije)
     {
         if (zajednickeProstorije != null)
         {

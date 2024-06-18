@@ -1,9 +1,9 @@
 ﻿namespace StanNaDanLibrary.Entiteti;
 
-public class ParkingId
+internal class ParkingId
 {
-    virtual public required Nekretnina Nekretnina { get; set; }
-    virtual public required int IdParkinga { get; set; }
+    virtual internal protected required Nekretnina Nekretnina { get; set; }
+    virtual internal protected required int IdParkinga { get; set; }
 
     public override bool Equals(object? obj)
     {

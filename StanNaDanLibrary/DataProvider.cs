@@ -3695,7 +3695,7 @@ public class DataProvider
 
     #region Najam
 
-    public async static Task<Result<Najam, ErrorMessage>> KreirajNajamAsync(NajamView noviNajam, int idNekretnine, string mbrAgenta, int? idSpoljnogSaradnika = null)
+    internal async static Task<Result<Najam, ErrorMessage>> KreirajNajamAsync(NajamView noviNajam, int idNekretnine, string mbrAgenta, int? idSpoljnogSaradnika = null)
     {
         ISession? session = null;
         try

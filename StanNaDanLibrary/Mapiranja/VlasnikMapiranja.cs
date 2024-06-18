@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class VlasnikMapiranja : ClassMap<Vlasnik>
+    internal class VlasnikMapiranja : ClassMap<Vlasnik>
     {
         public VlasnikMapiranja()
         {

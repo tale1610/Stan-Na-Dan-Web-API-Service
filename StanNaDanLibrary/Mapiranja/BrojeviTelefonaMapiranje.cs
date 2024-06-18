@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class BrojeviTelefonaMapiranja : ClassMap<BrojeviTelefona>
+    internal class BrojeviTelefonaMapiranja : ClassMap<BrojeviTelefona>
     {
         public BrojeviTelefonaMapiranja()
         {

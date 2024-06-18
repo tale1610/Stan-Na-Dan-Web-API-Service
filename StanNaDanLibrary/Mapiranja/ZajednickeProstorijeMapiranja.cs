@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class ZajednickeProstorijeMapiranja : ClassMap<ZajednickeProstorije>
+    internal class ZajednickeProstorijeMapiranja : ClassMap<ZajednickeProstorije>
     {
         public ZajednickeProstorijeMapiranja()
         {

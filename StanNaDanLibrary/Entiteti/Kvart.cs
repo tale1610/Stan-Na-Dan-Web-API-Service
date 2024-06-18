@@ -1,12 +1,12 @@
 ﻿namespace StanNaDanLibrary.Entiteti
 {
-    public class Kvart
+    internal class Kvart
     {
-        public virtual int ID { get; protected set; }
-        public required virtual string GradskaZona { get; set; }
+        internal protected virtual int ID { get; protected set; }
+        internal protected required virtual string GradskaZona { get; set; }
 
         //veze
-        public virtual required Poslovnica PoslovnicaZaduzenaZaNjega { get; set; }
-        public virtual IList<Nekretnina>? Nekretnine { get; set; } = [];
+        internal protected virtual required Poslovnica PoslovnicaZaduzenaZaNjega { get; set; }
+        internal protected virtual IList<Nekretnina>? Nekretnine { get; set; } = [];
     }
 }

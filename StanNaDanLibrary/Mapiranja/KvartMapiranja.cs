@@ -1,6 +1,6 @@
 ﻿namespace StanNaDanLibrary.Mapiranja
 {
-    class KvartMapiranja : ClassMap<Kvart>
+    internal class KvartMapiranja : ClassMap<Kvart>
     {
         public KvartMapiranja() {
             Table("KVART");

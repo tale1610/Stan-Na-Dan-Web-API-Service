@@ -1,7 +1,7 @@
 ﻿namespace StanNaDanLibrary.Entiteti
 {
-    public class ZajednickeProstorije
+    internal class ZajednickeProstorije
     {
-        virtual public required ZajednickeProstorijeId ID { get; set; }
+        virtual internal protected required ZajednickeProstorijeId ID { get; set; }
     }
 }

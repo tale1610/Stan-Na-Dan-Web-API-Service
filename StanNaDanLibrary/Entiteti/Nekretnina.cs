@@ -1,39 +1,39 @@
 ﻿namespace StanNaDanLibrary.Entiteti
 {
-    public class Nekretnina
+    internal class Nekretnina
     {
-        virtual public int IdNekretnine { get; protected set; }
-        virtual public required string Ulica { get; set; }
-        virtual public required string Broj { get; set; }
-        virtual public required double Kvadratura { get; set; }
-        virtual public required int BrojTerasa { get; set; }
-        virtual public required int BrojKupatila { get; set; }
-        virtual public required int BrojSpavacihSoba { get; set; }
-        virtual public required bool PosedujeTV { get; set; }
-        virtual public required bool PosedujeInternet { get; set; }
-        virtual public required bool PosedujeKuhinju { get; set; }
+        virtual internal protected int IdNekretnine { get; protected set; }
+        virtual internal protected required string Ulica { get; set; }
+        virtual internal protected required string Broj { get; set; }
+        virtual internal protected required double Kvadratura { get; set; }
+        virtual internal protected required int BrojTerasa { get; set; }
+        virtual internal protected required int BrojKupatila { get; set; }
+        virtual internal protected required int BrojSpavacihSoba { get; set; }
+        virtual internal protected required bool PosedujeTV { get; set; }
+        virtual internal protected required bool PosedujeInternet { get; set; }
+        virtual internal protected required bool PosedujeKuhinju { get; set; }
 
         //veze
-        virtual public required Kvart Kvart { get; set; }
-        virtual public required Vlasnik Vlasnik { get; set; }
-        virtual public IList<DodatnaOprema> DodatnaOprema { get; set; } = [];
-        virtual public IList<Parking> Parking { get; set; } = [];
-        virtual public IList<Krevet> Kreveti { get; set; } = [];
-        virtual public IList<Soba> Sobe {  get; set; } = [];
-        virtual public IList<SajtoviNekretnine> SajtoviNekretnine { get; set; } = [];
-        virtual public IList<Najam> Najmovi { get; set; } = [];
+        virtual internal protected required Kvart Kvart { get; set; }
+        virtual internal protected required Vlasnik Vlasnik { get; set; }
+        virtual internal protected IList<DodatnaOprema> DodatnaOprema { get; set; } = [];
+        virtual internal protected IList<Parking> Parking { get; set; } = [];
+        virtual internal protected IList<Krevet> Kreveti { get; set; } = [];
+        virtual internal protected IList<Soba> Sobe {  get; set; } = [];
+        virtual internal protected IList<SajtoviNekretnine> SajtoviNekretnine { get; set; } = [];
+        virtual internal protected IList<Najam> Najmovi { get; set; } = [];
     }
 
-    public class Stan : Nekretnina
+    internal class Stan : Nekretnina
     {
-        virtual public int Sprat { get; set; }
-        virtual public bool PosedujeLift { get; set; }
+        virtual internal protected int Sprat { get; set; }
+        virtual internal protected bool PosedujeLift { get; set; }
     }
 
-    public class Kuca : Nekretnina
+    internal class Kuca : Nekretnina
     {
-        virtual public int Spratnos { get; set; }
-        virtual public bool PosedujeDvoriste { get; set; }
+        virtual internal protected int Spratnos { get; set; }
+        virtual internal protected bool PosedujeDvoriste { get; set; }
     }
 }
 
